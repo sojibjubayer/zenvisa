@@ -1,17 +1,19 @@
 @import "tailwindcss";
 
 @theme {
-  /* Primary & Secondary Palettes */
+  /* Specification Primary Palette */
   --color-brand-dark: #2D1B3F;
   --color-brand-violet: #6A3FB4;
+  /* Secondary Palette */
   --color-brand-lavender: #9C6ADE;
   --color-brand-sky: #6EC5E9;
-  --color-light-grey: #EAEAEA;
+  /* Imagery Tones */
+  --color-brand-tiger: #E5A13E;
+  --color-brand-gunmetal: #213638;
   
-  /* Gradient overlays for "travel-vibe energy" */
   --background-image-sunset: linear-gradient(to right, #FF7BAC, #FF4CA1);
 }
 
 body {
-  @apply bg-brand-dark text-white antialiased;
+  @apply bg-brand-dark text-white selection:bg-brand-violet antialiased;
 }
