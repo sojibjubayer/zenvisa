@@ -1,19 +1,28 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import { 
-  Search, Globe, Clock, CheckCircle, 
-  ArrowRight, X, FileText, CreditCard, 
-  ShieldCheck, MapPin, ChevronRight 
+  Clock, CheckCircle, ArrowRight, X, 
+  FileText, CreditCard, ShieldCheck, ChevronRight 
 } from "lucide-react";
 
-// The updated destinations array with Unsplash images
-const destinations = [
+// 1. Define the Interface for TypeScript
+interface Destination {
+  id: number;
+  name: string;
+  image: string;
+  success: string;
+  date: string;
+  gradient: string;
+  docs: string[];
+}
+
+const destinations: Destination[] = [
   { 
     id: 1, 
     name: "Switzerland", 
-    image: "https://images.unsplash.com/photo-1530122037265-a5f1f91d3b99?q=80&w=800&auto=format&fit=crop",
+    image: "https://i.ibb.co/DH3wmxW4/bea61-europe-7128531-640.jpg",
     success: "750+", 
     date: "15 Sep", 
     gradient: "from-white/10", 
@@ -22,7 +31,7 @@ const destinations = [
   { 
     id: 2, 
     name: "Italy", 
-    image: "https://images.unsplash.com/photo-1523906834658-6e24ef2386f9?q=80&w=800&auto=format&fit=crop",
+    image: "https://i.ibb.co/bMyx3pHD/italy.jpg",
     success: "1.2K+", 
     date: "10 Sep", 
     gradient: "from-brand-lavender/30", 
@@ -31,7 +40,7 @@ const destinations = [
   { 
     id: 3, 
     name: "France", 
-    image: "https://images.unsplash.com/photo-1502602898657-3e91760cbb34?q=80&w=800&auto=format&fit=crop",
+    image: "https://i.ibb.co/tpjBv8kg/france.jpg",
     success: "1.5K+", 
     date: "09 Sep", 
     gradient: "from-brand-violet/40", 
@@ -40,7 +49,7 @@ const destinations = [
   { 
     id: 4, 
     name: "Spain", 
-    image: "https://images.unsplash.com/photo-1543783207-ec64e4d95325?q=80&w=800&auto=format&fit=crop",
+    image: "https://i.ibb.co/NgfMRMJx/elg21-city-6558404-640-1.jpg",
     success: "950+", 
     date: "12 Sep", 
     gradient: "from-yellow-500/10", 
@@ -49,7 +58,7 @@ const destinations = [
   { 
     id: 5, 
     name: "India", 
-    image: "https://images.unsplash.com/photo-1524492707943-5da36d772c8a?q=80&w=800&auto=format&fit=crop",
+    image: "https://i.ibb.co/Ld22Rwyj/ruthiesartcreations-taj-mahal-5519945-640.jpg",
     success: "2K+", 
     date: "05 Sep", 
     gradient: "from-orange-500/20", 
@@ -58,7 +67,7 @@ const destinations = [
   { 
     id: 6, 
     name: "Malaysia", 
-    image: "https://images.unsplash.com/photo-1529397948517-2250f22df9f5?q=80&w=800&auto=format&fit=crop",
+    image: "https://i.ibb.co/bjD4gcdB/malaysia.jpg",
     success: "1.1K+", 
     date: "08 Sep", 
     gradient: "from-blue-500/20", 
@@ -67,7 +76,7 @@ const destinations = [
   { 
     id: 7, 
     name: "Thailand", 
-    image: "https://images.unsplash.com/photo-1528181304800-2f140819ad9c?q=80&w=800&auto=format&fit=crop",
+    image: "https://i.ibb.co/Kxz8dcQ2/thailand.jpg",
     success: "3K+", 
     date: "04 Sep", 
     gradient: "from-red-500/20", 
@@ -86,8 +95,15 @@ const destinations = [
 
 export default function ZenVisasFullPage() {
   const router = useRouter();
-  const [selectedCountry, setSelectedCountry] = useState(null);
+  const [mounted, setMounted] = useState(false);
+  
+  // 2. Pass the interface to useState
+  const [selectedCountry, setSelectedCountry] = useState<Destination | null>(null);
   const [navSelection, setNavSelection] = useState("");
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
 
   const handleProceed = () => {
     if (navSelection) {
@@ -95,57 +111,82 @@ export default function ZenVisasFullPage() {
     }
   };
 
+  if (!mounted) { 
+    return <div className="min-h-screen bg-[#0F0817]" />;
+  }
+
   return (
-    <div className="min-h-screen pb-20 bg-brand-dark text-white font-sans">
+    <div className="min-h-screen pb-20 bg-brand-dark text-white font-sans selection:bg-pink-500/30">
       {/* --- NAVIGATION --- */}
       <nav className="sticky top-0 z-40 bg-brand-dark/80 backdrop-blur-xl border-b border-white/5 p-4 md:p-6">
         <div className="max-w-7xl mx-auto flex justify-between items-center">
           <div className="flex items-center gap-3">
-            <div className="w-10 h-10 bg-linear-to-r from-[#FF7BAC] to-[#FF4CA1] rounded-xl flex items-center justify-center font-black shadow-lg shadow-pink-500/20">Z</div>
+            <div className="w-10 h-10 bg-linear-to-r from-[#FF7BAC] to-[#FF4CA1] rounded-xl flex items-center justify-center font-black shadow-lg shadow-pink-500/20 text-white text-xl">Z</div>
             <span className="text-2xl font-black tracking-tighter uppercase">ZenVisas</span>
           </div>
-          <button className="bg-brand-violet px-6 py-2.5 rounded-full text-sm font-bold shadow-lg hover:scale-105 transition-all bg-white/10 border border-white/10">
+          <button className="bg-white/5 border border-white/10 px-6 py-2.5 rounded-full text-sm font-bold shadow-lg hover:scale-105 transition-all hover:bg-white/10">
             Join Platform
           </button>
         </div>
       </nav>
 
-      {/* --- HERO SECTION --- */}
-      <section className="max-w-5xl mx-auto px-6 pt-16 md:pt-24 pb-12 text-center">
-        <div className="inline-flex items-center gap-2 bg-white/5 border border-white/10 px-4 py-2 rounded-full mb-8">
-          <ShieldCheck className="w-4 h-4 text-brand-sky" />
-          <span className="text-[10px] font-black uppercase tracking-widest text-brand-sky">Visit Visa Application Simplified.</span>
+     {/* --- HERO SECTION --- */} 
+     {/* --- HERO SECTION --- */} 
+      <section className="relative max-w-7xl mx-auto px-6 pt-16 md:pt-24 pb-20 text-center overflow-hidden">
+        {/* Background Banner Image Layer */}
+        <div className="absolute inset-0 z-0 opacity-40">
+          <img 
+            src="https://i.ibb.co/2154SDfD/hero-bg.jpg" 
+            alt="ZenVisas Banner" 
+            className="w-full h-full object-cover"
+          />
+          {/* Radial mask to fade the edges into the dark theme */}
+          <div className="absolute inset-0 bg-radial-[at_50%_50%] from-transparent via-brand-dark/60 to-brand-dark" />
         </div>
-        <h1 className="text-5xl md:text-7xl font-black mb-6 tracking-tight leading-[1.1]">
-          World Travel, <br />
-          <span className="text-transparent bg-clip-text bg-linear-to-r from-[#FF7BAC] to-[#FF4CA1]">Redefined.</span>
-        </h1>
-        
-        <div className="mt-8 bg-white/5 p-3 rounded-3xl md:rounded-4xl border border-white/10 flex flex-col md:flex-row gap-3 max-w-2xl mx-auto shadow-2xl backdrop-blur-md">
-          <div className="flex-1 relative">
-            <select 
-              value={navSelection}
-              onChange={(e) => setNavSelection(e.target.value)}
-              className="w-full bg-brand-dark text-white p-4 rounded-2xl md:rounded-3xl border border-white/5 outline-none appearance-none cursor-pointer font-bold focus:border-brand-violet/50 transition-colors"
-            >
-              <option value="" disabled>Where are you going?</option>
-              {destinations.map((d) => (
-                <option key={d.id} value={d.name} className="bg-brand-dark">
-                  {d.name}
-                </option>
-              ))}
-            </select>
-            <div className="absolute right-4 top-1/2 -translate-y-1/2 pointer-events-none text-brand-sky">
-              <ChevronRight className="w-5 h-5 rotate-90" />
-            </div>
+
+        {/* Hero Content (Higher Z-Index) */}
+        <div className="relative z-10">
+          <div className="inline-flex items-center gap-2 bg-white/5 border border-white/10 px-4 py-2 rounded-full mb-8 backdrop-blur-md">
+            <ShieldCheck className="w-4 h-4 text-brand-sky" />
+            <span className="text-[10px] font-black uppercase tracking-widest text-brand-sky">Visit Visa Application Simplified.</span>
           </div>
-          <button 
-            onClick={handleProceed}
-            disabled={!navSelection}
-            className="md:px-10 py-4 bg-linear-to-r from-[#FF7BAC] to-[#FF4CA1] rounded-2xl md:rounded-3xl font-black text-lg shadow-xl active:scale-95 transition-all disabled:opacity-30 flex items-center justify-center gap-2"
-          >
-            Proceed <ArrowRight className="w-5 h-5" />
-          </button>
+          
+          <h1 className="text-5xl md:text-6xl font-black mb-6 tracking-tight leading-[0.9]">
+            World Travel, <br />
+            <span className="text-transparent bg-clip-text bg-linear-to-r from-[#FF7BAC] to-[#FF4CA1]">Redefined.</span>
+          </h1>
+          
+          <p className="text-brand-lavender max-w-xl mx-auto mb-10 text-lg font-medium">
+            The premium visa concierge service for frequent flyers. <br />
+            Apply in minutes, fly in days. 
+          </p>
+          
+          <div className="mt-8 bg-white/5 p-3 rounded-3xl md:rounded-4xl border border-white/10 flex flex-col md:flex-row gap-3 max-w-2xl mx-auto shadow-2xl backdrop-blur-xl">
+            <div className="flex-1 relative">
+              <select 
+                value={navSelection}
+                onChange={(e) => setNavSelection(e.target.value)}
+                className="w-full bg-brand-dark text-white p-4 rounded-2xl md:rounded-3xl border border-white/5 outline-none appearance-none cursor-pointer font-bold focus:border-brand-violet/50 transition-colors"
+              >
+                <option value="" disabled>Where are you going?</option>
+                {destinations.map((d) => (
+                  <option key={d.id} value={d.name} className="bg-brand-dark">
+                    {d.name}
+                  </option>
+                ))}
+              </select>
+              <div className="absolute right-4 top-1/2 -translate-y-1/2 pointer-events-none text-brand-sky">
+                <ChevronRight className="w-5 h-5 rotate-90" />
+              </div>
+            </div>
+            <button 
+              onClick={handleProceed}
+              disabled={!navSelection}
+              className="md:px-10 py-4 bg-linear-to-r from-[#FF7BAC] to-[#FF4CA1] rounded-2xl md:rounded-3xl font-black text-lg shadow-xl active:scale-95 transition-all disabled:opacity-30 flex items-center justify-center gap-2 text-white"
+            >
+              Proceed <ArrowRight className="w-5 h-5" />
+            </button>
+          </div>
         </div>
       </section>
 
@@ -161,27 +202,24 @@ export default function ZenVisasFullPage() {
             <div 
               key={country.id} 
               onClick={() => setSelectedCountry(country)}
-              className="group cursor-pointer relative min-h-[400px] rounded-[2.5rem] overflow-hidden border border-white/10 transition-all duration-500 hover:border-brand-violet shadow-xl"
+              className="group cursor-pointer relative min-h-100 rounded-[2.5rem] overflow-hidden border border-white/10 transition-all duration-500 hover:border-brand-violet shadow-xl"
             >
-              {/* IMAGE LAYER */}
               <div className="absolute inset-0 z-0">
                 <img 
                   src={country.image} 
                   alt={country.name} 
                   className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
                 />
-                {/* DARK OVERLAY FOR LEGIBILITY */}
-                <div className={`absolute inset-0 bg-linear-to-b from-brand-dark/20 via-brand-dark/60 to-brand-dark z-1`} />
+                <div className="absolute inset-0 bg-linear-to-b from-brand-dark/10 via-brand-dark/40 to-brand-dark z-1" />
               </div>
 
-              {/* CONTENT LAYER */}
               <div className="relative z-10 h-full flex flex-col justify-end p-8">
                 <div className="absolute top-5 right-5 bg-brand-dark/90 backdrop-blur-md px-4 py-1.5 rounded-full border border-white/10 flex items-center gap-2">
                   <CheckCircle className="w-3.5 h-3.5 text-brand-sky" />
                   <span className="text-[10px] font-black tracking-widest uppercase">{country.success} Done</span>
                 </div>
                 
-                <h3 className="text-3xl font-black mb-2 group-hover:text-brand-sky transition-colors leading-tight">
+                <h3 className="text-3xl font-black mb-1 group-hover:text-brand-sky transition-colors leading-tight">
                   {country.name}
                 </h3>
                 
@@ -200,22 +238,54 @@ export default function ZenVisasFullPage() {
         </div>
       </section>
 
+      {/* --- FOOTER --- */}
+      <footer className="max-w-7xl mx-auto px-6 pt-20 pb-10 border-t border-white/5 mt-20">
+        <div className="grid grid-cols-1 md:grid-cols-4 gap-12 mb-16">
+          <div className="col-span-2">
+            <div className="flex items-center gap-3 mb-6">
+              <div className="w-8 h-8 bg-linear-to-r from-[#FF7BAC] to-[#FF4CA1] rounded-lg flex items-center justify-center font-black">Z</div>
+              <span className="text-xl font-black uppercase tracking-tighter">ZenVisas</span>
+            </div>
+            <p className="text-brand-lavender max-w-sm">Simplified visa processing for Qatar residents. Secure, fast, and transparent.</p>
+          </div>
+          <div>
+            <h4 className="font-black uppercase tracking-widest text-brand-sky text-[10px] mb-6">Support</h4>
+            <ul className="space-y-4 text-sm font-bold text-brand-lavender">
+              <li className="hover:text-white cursor-pointer transition">Help Center</li>
+              <li className="hover:text-white cursor-pointer transition">Terms of Service</li>
+            </ul>
+          </div>
+          <div>
+            <h4 className="font-black uppercase tracking-widest text-brand-sky text-[10px] mb-6">Legal</h4>
+            <ul className="space-y-4 text-sm font-bold text-brand-lavender">
+              <li className="hover:text-white cursor-pointer transition">Privacy Policy</li>
+              <li className="hover:text-white cursor-pointer transition">Cookie Policy</li>
+            </ul>
+          </div>
+        </div>
+        <p className="text-center text-[10px] font-black uppercase tracking-[0.3em] text-white/20">© 2026 ZenVisas Doha, Qatar</p>
+      </footer>
+
       {/* --- MODAL --- */}
       {selectedCountry && (
         <div className="fixed inset-0 z-50 flex items-end md:items-center justify-center p-0 md:p-6">
           <div className="fixed inset-0 bg-brand-dark/95 backdrop-blur-xl" onClick={() => setSelectedCountry(null)} />
-          <div className="relative w-full max-w-2xl bg-[#1A1128] border-t md:border border-white/10 rounded-t-[3rem] md:rounded-[3rem] p-8 md:p-10 shadow-2xl animate-in slide-in-from-bottom duration-500">
+          <div className="relative w-full max-w-2xl bg-[#1A1128] border border-white/10 rounded-t-[3rem] md:rounded-[3rem] p-8 md:p-10 shadow-2xl animate-in slide-in-from-bottom duration-500">
             <div className="flex justify-between items-start mb-8">
               <div>
                 <h3 className="text-4xl md:text-5xl font-black tracking-tight">{selectedCountry.name}</h3>
                 <p className="text-brand-lavender mt-2 font-medium italic">Standard Visit Visa Application</p>
               </div>
-              <button onClick={() => setSelectedCountry(null)} className="p-3 bg-white/5 rounded-2xl hover:bg-white/10 transition"><X /></button>
+              <button onClick={() => setSelectedCountry(null)} className="p-3 bg-white/5 rounded-2xl text-white hover:bg-white/10 transition">
+                <X className="w-6 h-6" />
+              </button>
             </div>
 
             <div className="bg-linear-to-br from-brand-violet/20 via-brand-violet/5 to-transparent p-6 rounded-4xl border border-brand-violet/30 mb-8 flex justify-between items-center">
               <div className="flex items-center gap-4">
-                <div className="w-14 h-14 bg-brand-violet rounded-2xl flex items-center justify-center shadow-lg"><CreditCard /></div>
+                <div className="w-14 h-14 bg-brand-violet rounded-2xl flex items-center justify-center shadow-lg text-white">
+                  <CreditCard className="w-6 h-6" />
+                </div>
                 <div>
                   <p className="text-[10px] uppercase font-black text-brand-lavender tracking-widest mb-1">Fee</p>
                   <p className="text-3xl font-black tracking-tighter">499 QAR</p>
@@ -225,31 +295,26 @@ export default function ZenVisasFullPage() {
             </div>
 
             <div className="mb-8">
-                <h4 className="text-[10px] font-black uppercase tracking-widest text-brand-sky mb-4">Mandatory Documents</h4>
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-                    {selectedCountry.docs.map((doc, idx) => (
-                        <div key={idx} className="flex items-center gap-3 bg-white/5 p-4 rounded-2xl border border-white/5">
-                            <FileText className="w-4 h-4 text-brand-lavender" />
-                            <span className="text-sm font-bold">{doc}</span>
-                        </div>
-                    ))}
-                </div>
+              <h4 className="text-[10px] font-black uppercase tracking-widest text-brand-sky mb-4">Mandatory Documents</h4>
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                {selectedCountry.docs.map((doc, idx) => (
+                  <div key={idx} className="flex items-center gap-3 bg-white/5 p-4 rounded-2xl border border-white/5">
+                    <FileText className="w-4 h-4 text-brand-lavender" />
+                    <span className="text-sm font-bold">{doc}</span>
+                  </div>
+                ))}
+              </div>
             </div>
 
             <button 
               onClick={() => router.push(`/visa/${selectedCountry.name.toLowerCase()}`)}
-              className="w-full bg-linear-to-r from-[#FF7BAC] to-[#FF4CA1] py-5 rounded-4xl font-black text-xl shadow-2xl flex items-center justify-center gap-3 hover:scale-[1.02] active:scale-95 transition-all"
+              className="w-full bg-linear-to-r from-[#FF7BAC] to-[#FF4CA1] py-5 rounded-4xl font-black text-xl shadow-2xl flex items-center justify-center gap-3 hover:scale-[1.02] active:scale-95 transition-all text-white"
             >
-              Start Application <ArrowRight />
+              Start Application <ArrowRight className="w-6 h-6" />
             </button>
           </div>
         </div>
       )}
-
-      {/* --- FOOTER --- */}
-      <footer className="max-w-7xl mx-auto px-6 pt-20 pb-10 border-t border-white/5 mt-20">
-        <p className="text-center text-[10px] font-black uppercase tracking-[0.3em] text-white/20">© 2026 ZenVisas Doha, Qatar</p>
-      </footer>
     </div>
   );
 }
