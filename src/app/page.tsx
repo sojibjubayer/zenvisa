@@ -82,7 +82,7 @@ export default function ZenVisasFullPage() {
             <span className="text-[9px] md:text-[10px] font-black uppercase tracking-widest text-brand-sky">Visit Visa Simplified</span>
           </div>
           
-          <h1 className="text-4xl sm:text-6xl md:text-8xl font-black mb-6 tracking-tight leading-[1.1] md:leading-[0.9]">
+          <h1 className="text-4xl sm:text-5xl md:text-7xl font-black mb-6 tracking-tight leading-[1.1] md:leading-[0.9]">
             World Travel, <br />
             <span className="text-transparent bg-clip-text bg-linear-to-r from-[#FF7BAC] to-[#FF4CA1]">Redefined.</span>
           </h1>
