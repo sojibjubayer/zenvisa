@@ -9,14 +9,78 @@ import {
 } from "lucide-react";
 
 const destinations = [
-  { id: 1, name: "Switzerland", success: "750+", date: "15 Sep", gradient: "from-white/10", docs: ["Schengen Form", "Flight Booking", "Hotel Voucher", "Salary Certificate"] },
-  { id: 2, name: "Italy", success: "1.2K+", date: "10 Sep", gradient: "from-brand-lavender/30", docs: ["Schengen Form", "Insurance", "Bank Statement (6 Months)", "NOC Letter"] },
-  { id: 3, name: "France", success: "1.5K+", date: "09 Sep", gradient: "from-brand-violet/40", docs: ["Schengen Form", "Passport Copy", "2 Photos (White BG)", "Travel Insurance"] },
-  { id: 4, name: "Spain", success: "950+", date: "12 Sep", gradient: "from-yellow-500/10", docs: ["Schengen Form", "Flight Itinerary", "Proof of Accommodation", "Bank Statement"] },
-  { id: 5, name: "India", success: "2K+", date: "05 Sep", gradient: "from-orange-500/20", docs: ["E-Visa Form", "Passport Scan", "Digital Photo", "Invite Letter"] },
-  { id: 6, name: "Malaysia", success: "1.1K+", date: "08 Sep", gradient: "from-blue-500/20", docs: ["Digital Visa Form", "Passport Copy", "Flight Ticket", "Hotel Confirmation"] },
-  { id: 7, name: "Thailand", success: "3K+", date: "04 Sep", gradient: "from-red-500/20", docs: ["Arrival Card", "Bank Balance", "Flight Return", "Passport Scan"] },
-  { id: 8, name: "Maldives", success: "900+", date: "02 Sep", gradient: "from-brand-sky/30", docs: ["IMUGA Form", "Hotel Booking", "Return Ticket", "Health Declaration"] },
+  { 
+    id: 1, 
+    name: "Switzerland", 
+    image: "https://images.unsplash.com/photo-1530122037265-a5f1f91d3b99?q=80&w=800&auto=format&fit=crop",
+    success: "750+", 
+    date: "15 Sep", 
+    gradient: "from-white/10", 
+    docs: ["Schengen Form", "Flight Booking", "Hotel Voucher", "Salary Certificate"] 
+  },
+  { 
+    id: 2, 
+    name: "Italy", 
+    image: "https://images.unsplash.com/photo-1523906834658-6e24ef2386f9?q=80&w=800&auto=format&fit=crop",
+    success: "1.2K+", 
+    date: "10 Sep", 
+    gradient: "from-brand-lavender/30", 
+    docs: ["Schengen Form", "Insurance", "Bank Statement (6 Months)", "NOC Letter"] 
+  },
+  { 
+    id: 3, 
+    name: "France", 
+    image: "https://images.unsplash.com/photo-1502602898657-3e91760cbb34?q=80&w=800&auto=format&fit=crop",
+    success: "1.5K+", 
+    date: "09 Sep", 
+    gradient: "from-brand-violet/40", 
+    docs: ["Schengen Form", "Passport Copy", "2 Photos (White BG)", "Travel Insurance"] 
+  },
+  { 
+    id: 4, 
+    name: "Spain", 
+    image: "https://images.unsplash.com/photo-1543783207-ec64e4d95325?q=80&w=800&auto=format&fit=crop",
+    success: "950+", 
+    date: "12 Sep", 
+    gradient: "from-yellow-500/10", 
+    docs: ["Schengen Form", "Flight Itinerary", "Proof of Accommodation", "Bank Statement"] 
+  },
+  { 
+    id: 5, 
+    name: "India", 
+    image: "https://images.unsplash.com/photo-1524492707943-5da36d772c8a?q=80&w=800&auto=format&fit=crop",
+    success: "2K+", 
+    date: "05 Sep", 
+    gradient: "from-orange-500/20", 
+    docs: ["E-Visa Form", "Passport Scan", "Digital Photo", "Invite Letter"] 
+  },
+  { 
+    id: 6, 
+    name: "Malaysia", 
+    image: "https://images.unsplash.com/photo-1529397948517-2250f22df9f5?q=80&w=800&auto=format&fit=crop",
+    success: "1.1K+", 
+    date: "08 Sep", 
+    gradient: "from-blue-500/20", 
+    docs: ["Digital Visa Form", "Passport Copy", "Flight Ticket", "Hotel Confirmation"] 
+  },
+  { 
+    id: 7, 
+    name: "Thailand", 
+    image: "https://images.unsplash.com/photo-1528181304800-2f140819ad9c?q=80&w=800&auto=format&fit=crop",
+    success: "3K+", 
+    date: "04 Sep", 
+    gradient: "from-red-500/20", 
+    docs: ["Arrival Card", "Bank Balance", "Flight Return", "Passport Scan"] 
+  },
+  { 
+    id: 8, 
+    name: "Maldives", 
+    image: "https://images.unsplash.com/photo-1514282401047-d79a71a590e8?q=80&w=800&auto=format&fit=crop",
+    success: "900+", 
+    date: "02 Sep", 
+    gradient: "from-brand-sky/30", 
+    docs: ["IMUGA Form", "Hotel Booking", "Return Ticket", "Health Declaration"] 
+  },
 ];
 
 export default function ZenVisasFullPage() {
