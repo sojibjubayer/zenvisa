@@ -156,10 +156,7 @@ export default function ZenVisasFullPage() {
             <span className="text-transparent bg-clip-text bg-linear-to-r from-[#FF7BAC] to-[#FF4CA1]">Redefined.</span>
           </h1>
           
-          <p className="text-brand-lavender max-w-xl mx-auto mb-10 text-lg font-medium">
-            The premium visa concierge service for frequent flyers. <br />
-            Apply in minutes, fly in days. 
-          </p>
+
           
           <div className="mt-8 bg-white/5 p-3 rounded-3xl md:rounded-4xl border border-white/10 flex flex-col md:flex-row gap-3 max-w-2xl mx-auto shadow-2xl backdrop-blur-xl">
             <div className="flex-1 relative">
