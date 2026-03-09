@@ -8,6 +8,7 @@ import {
   ShieldCheck, MapPin, ChevronRight 
 } from "lucide-react";
 
+// The updated destinations array with Unsplash images
 const destinations = [
   { 
     id: 1, 
@@ -85,18 +86,17 @@ const destinations = [
 
 export default function ZenVisasFullPage() {
   const router = useRouter();
-  const [selectedCountry, setSelectedCountry] = useState<typeof destinations[0] | null>(null);
+  const [selectedCountry, setSelectedCountry] = useState(null);
   const [navSelection, setNavSelection] = useState("");
 
   const handleProceed = () => {
     if (navSelection) {
-      // Navigates to /visa/switzerland, /visa/india, etc.
       router.push(`/visa/${navSelection.toLowerCase()}`);
     }
   };
 
   return (
-    <div className="min-h-screen pb-20 bg-brand-dark text-white">
+    <div className="min-h-screen pb-20 bg-brand-dark text-white font-sans">
       {/* --- NAVIGATION --- */}
       <nav className="sticky top-0 z-40 bg-brand-dark/80 backdrop-blur-xl border-b border-white/5 p-4 md:p-6">
         <div className="max-w-7xl mx-auto flex justify-between items-center">
@@ -104,7 +104,7 @@ export default function ZenVisasFullPage() {
             <div className="w-10 h-10 bg-linear-to-r from-[#FF7BAC] to-[#FF4CA1] rounded-xl flex items-center justify-center font-black shadow-lg shadow-pink-500/20">Z</div>
             <span className="text-2xl font-black tracking-tighter uppercase">ZenVisas</span>
           </div>
-          <button className="bg-brand-violet px-6 py-2.5 rounded-full text-sm font-bold shadow-lg hover:scale-105 transition-all">
+          <button className="bg-brand-violet px-6 py-2.5 rounded-full text-sm font-bold shadow-lg hover:scale-105 transition-all bg-white/10 border border-white/10">
             Join Platform
           </button>
         </div>
@@ -114,14 +114,13 @@ export default function ZenVisasFullPage() {
       <section className="max-w-5xl mx-auto px-6 pt-16 md:pt-24 pb-12 text-center">
         <div className="inline-flex items-center gap-2 bg-white/5 border border-white/10 px-4 py-2 rounded-full mb-8">
           <ShieldCheck className="w-4 h-4 text-brand-sky" />
-          <span className="text-[10px] font-black uppercase tracking-widest text-brand-sky text-center">Visit Visa Application Simplified.</span>
+          <span className="text-[10px] font-black uppercase tracking-widest text-brand-sky">Visit Visa Application Simplified.</span>
         </div>
         <h1 className="text-5xl md:text-7xl font-black mb-6 tracking-tight leading-[1.1]">
           World Travel, <br />
           <span className="text-transparent bg-clip-text bg-linear-to-r from-[#FF7BAC] to-[#FF4CA1]">Redefined.</span>
         </h1>
         
-        {/* CORRECTED SELECTOR BOX */}
         <div className="mt-8 bg-white/5 p-3 rounded-3xl md:rounded-4xl border border-white/10 flex flex-col md:flex-row gap-3 max-w-2xl mx-auto shadow-2xl backdrop-blur-md">
           <div className="flex-1 relative">
             <select 
@@ -162,17 +161,38 @@ export default function ZenVisasFullPage() {
             <div 
               key={country.id} 
               onClick={() => setSelectedCountry(country)}
-              className="group cursor-pointer relative min-h-[400px]"
+              className="group cursor-pointer relative min-h-[400px] rounded-[2.5rem] overflow-hidden border border-white/10 transition-all duration-500 hover:border-brand-violet shadow-xl"
             >
-              <div className={`absolute inset-0 rounded-4xl overflow-hidden bg-linear-to-b ${country.gradient} to-brand-dark border border-white/10 group-hover:border-brand-violet transition-all duration-500 flex flex-col justify-end p-8`}>
-                <div className="absolute top-5 right-5 z-10 bg-brand-dark/90 backdrop-blur-md px-4 py-1.5 rounded-full border border-white/10 flex items-center gap-2">
+              {/* IMAGE LAYER */}
+              <div className="absolute inset-0 z-0">
+                <img 
+                  src={country.image} 
+                  alt={country.name} 
+                  className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
+                />
+                {/* DARK OVERLAY FOR LEGIBILITY */}
+                <div className={`absolute inset-0 bg-linear-to-b from-brand-dark/20 via-brand-dark/60 to-brand-dark z-1`} />
+              </div>
+
+              {/* CONTENT LAYER */}
+              <div className="relative z-10 h-full flex flex-col justify-end p-8">
+                <div className="absolute top-5 right-5 bg-brand-dark/90 backdrop-blur-md px-4 py-1.5 rounded-full border border-white/10 flex items-center gap-2">
                   <CheckCircle className="w-3.5 h-3.5 text-brand-sky" />
                   <span className="text-[10px] font-black tracking-widest uppercase">{country.success} Done</span>
                 </div>
-                <h3 className="text-3xl font-black mb-2 group-hover:text-brand-sky transition-colors">{country.name}</h3>
+                
+                <h3 className="text-3xl font-black mb-2 group-hover:text-brand-sky transition-colors leading-tight">
+                  {country.name}
+                </h3>
+                
                 <div className="flex items-center gap-2 text-brand-sky font-bold">
                   <Clock className="w-4 h-4" />
                   <span className="text-sm uppercase tracking-wide">Get on {country.date}</span>
+                </div>
+                
+                <div className="mt-4 pt-4 border-t border-white/10 flex items-center gap-2 opacity-0 group-hover:opacity-100 transform translate-y-2 group-hover:translate-y-0 transition-all duration-300">
+                   <span className="text-[10px] font-black uppercase tracking-widest text-brand-lavender">View Requirements</span>
+                   <ArrowRight className="w-3 h-3 text-brand-sky" />
                 </div>
               </div>
             </div>
@@ -180,53 +200,42 @@ export default function ZenVisasFullPage() {
         </div>
       </section>
 
-      {/* --- FOOTER --- */}
-      <footer className="max-w-7xl mx-auto px-6 pt-20 pb-10 border-t border-white/5 mt-20">
-        <div className="grid grid-cols-1 md:grid-cols-4 gap-12 mb-16">
-          <div className="col-span-2">
-            <div className="flex items-center gap-3 mb-6">
-              <div className="w-8 h-8 bg-linear-to-r from-[#FF7BAC] to-[#FF4CA1] rounded-lg flex items-center justify-center font-black">Z</div>
-              <span className="text-xl font-black uppercase tracking-tighter">ZenVisas</span>
-            </div>
-            <p className="text-brand-lavender max-w-sm">Simplified visa processing for Qatar residents. Secure, fast, and transparent.</p>
-          </div>
-          <div>
-            <h4 className="font-black uppercase tracking-widest text-brand-sky text-[10px] mb-6">Support</h4>
-            <ul className="space-y-4 text-sm font-bold text-brand-lavender">
-              <li className="hover:text-white cursor-pointer transition">Help Center</li>
-              <li className="hover:text-white cursor-pointer transition">Terms of Service</li>
-            </ul>
-          </div>
-          <div>
-            <h4 className="font-black uppercase tracking-widest text-brand-sky text-[10px] mb-6">Legal</h4>
-            <ul className="space-y-4 text-sm font-bold text-brand-lavender">
-              <li className="hover:text-white cursor-pointer transition">Privacy Policy</li>
-              <li className="hover:text-white cursor-pointer transition">Cookie Policy</li>
-            </ul>
-          </div>
-        </div>
-        <p className="text-center text-[10px] font-black uppercase tracking-[0.3em] text-white/20">© 2026 ZenVisas Doha, Qatar</p>
-      </footer>
-
       {/* --- MODAL --- */}
       {selectedCountry && (
-        <div className="fixed inset-0 z-50 flex items-end md:items-center justify-center p-0 md:p-6 overflow-y-auto">
-          <div className="fixed inset-0 bg-brand-dark/90 backdrop-blur-xl" onClick={() => setSelectedCountry(null)} />
+        <div className="fixed inset-0 z-50 flex items-end md:items-center justify-center p-0 md:p-6">
+          <div className="fixed inset-0 bg-brand-dark/95 backdrop-blur-xl" onClick={() => setSelectedCountry(null)} />
           <div className="relative w-full max-w-2xl bg-[#1A1128] border-t md:border border-white/10 rounded-t-[3rem] md:rounded-[3rem] p-8 md:p-10 shadow-2xl animate-in slide-in-from-bottom duration-500">
             <div className="flex justify-between items-start mb-8">
-              <h3 className="text-4xl md:text-5xl font-black tracking-tight">{selectedCountry.name}</h3>
+              <div>
+                <h3 className="text-4xl md:text-5xl font-black tracking-tight">{selectedCountry.name}</h3>
+                <p className="text-brand-lavender mt-2 font-medium italic">Standard Visit Visa Application</p>
+              </div>
               <button onClick={() => setSelectedCountry(null)} className="p-3 bg-white/5 rounded-2xl hover:bg-white/10 transition"><X /></button>
             </div>
+
             <div className="bg-linear-to-br from-brand-violet/20 via-brand-violet/5 to-transparent p-6 rounded-4xl border border-brand-violet/30 mb-8 flex justify-between items-center">
               <div className="flex items-center gap-4">
                 <div className="w-14 h-14 bg-brand-violet rounded-2xl flex items-center justify-center shadow-lg"><CreditCard /></div>
                 <div>
                   <p className="text-[10px] uppercase font-black text-brand-lavender tracking-widest mb-1">Fee</p>
-                  <p className="text-3xl font-black">499 QAR</p>
+                  <p className="text-3xl font-black tracking-tighter">499 QAR</p>
                 </div>
               </div>
               <span className="text-[10px] font-black uppercase text-brand-sky tracking-widest">Visa + Service Fee</span>
             </div>
+
+            <div className="mb-8">
+                <h4 className="text-[10px] font-black uppercase tracking-widest text-brand-sky mb-4">Mandatory Documents</h4>
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                    {selectedCountry.docs.map((doc, idx) => (
+                        <div key={idx} className="flex items-center gap-3 bg-white/5 p-4 rounded-2xl border border-white/5">
+                            <FileText className="w-4 h-4 text-brand-lavender" />
+                            <span className="text-sm font-bold">{doc}</span>
+                        </div>
+                    ))}
+                </div>
+            </div>
+
             <button 
               onClick={() => router.push(`/visa/${selectedCountry.name.toLowerCase()}`)}
               className="w-full bg-linear-to-r from-[#FF7BAC] to-[#FF4CA1] py-5 rounded-4xl font-black text-xl shadow-2xl flex items-center justify-center gap-3 hover:scale-[1.02] active:scale-95 transition-all"
@@ -236,6 +245,11 @@ export default function ZenVisasFullPage() {
           </div>
         </div>
       )}
+
+      {/* --- FOOTER --- */}
+      <footer className="max-w-7xl mx-auto px-6 pt-20 pb-10 border-t border-white/5 mt-20">
+        <p className="text-center text-[10px] font-black uppercase tracking-[0.3em] text-white/20">© 2026 ZenVisas Doha, Qatar</p>
+      </footer>
     </div>
   );
 }
