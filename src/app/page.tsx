@@ -79,7 +79,7 @@ export default function ZenVisasFullPage() {
         <div className="relative z-10 max-w-5xl mx-auto text-center">
           <div className="inline-flex items-center gap-2 bg-white/5 border border-white/10 px-3 py-1.5 md:px-4 md:py-2 rounded-full mb-6 backdrop-blur-md">
             <ShieldCheck className="w-3.5 h-3.5 md:w-4 md:h-4 text-brand-sky" />
-            <span className="text-[9px] md:text-[10px] font-black uppercase tracking-widest text-brand-sky">Visit Visa Simplified</span>
+            <span className="text-[9px] md:text-[10px] font-black uppercase tracking-widest text-brand-sky">Visa Application Simplified</span>
           </div>
           
           <h1 className="text-4xl sm:text-5xl md:text-7xl font-black mb-6 tracking-tight leading-[1.1] md:leading-[0.9]">
