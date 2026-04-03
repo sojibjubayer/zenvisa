@@ -170,7 +170,7 @@ export default function ZenVisasFullPage() {
           <div className="md:col-span-2">
             <div className="flex items-center justify-center md:justify-start gap-3 mb-4">
               <div className="w-7 h-7 bg-linear-to-r from-[#FF7BAC] to-[#FF4CA1] rounded-lg flex items-center justify-center font-black text-xs text-white">Z</div>
-              <span className="text-lg font-black uppercase tracking-tighter">ZenVisas</span>
+              <span className="text-lg font-black uppercase tracking-tighter">VisaSlide</span>
             </div>
             <p className="text-brand-lavender text-sm max-w-sm mx-auto md:mx-0 leading-relaxed">
               Simplified visa processing for Qatar residents. Secure, fast, and transparent service for global travel.
@@ -196,61 +196,94 @@ export default function ZenVisasFullPage() {
         </div>
       </footer>
 
-      {/* --- MODAL (Responsive Bottom Sheet) --- */}
-      {selectedCountry && (
-        <div className="fixed inset-0 z-100 flex items-end md:items-center justify-center">
-          <div 
-            className="fixed inset-0 bg-brand-dark/95 backdrop-blur-xl animate-in fade-in duration-300" 
-            onClick={() => setSelectedCountry(null)} 
-          />
-          <div className="relative w-full max-w-2xl bg-[#1A1128] border-t md:border border-white/10 rounded-t-[2.5rem] md:rounded-[3rem] p-6 md:p-10 shadow-2xl animate-in slide-in-from-bottom duration-500 max-h-[90vh] overflow-y-auto">
-            <div className="flex justify-between items-start mb-6 md:mb-8">
-              <div>
-                <h3 className="text-3xl md:text-5xl font-black tracking-tight">{selectedCountry.name}</h3>
-                <p className="text-brand-lavender text-sm md:text-base mt-1 font-medium italic">Standard Visit Visa Application</p>
-              </div>
-              <button 
-                onClick={() => setSelectedCountry(null)} 
-                className="p-2 md:p-3 bg-white/5 rounded-xl md:rounded-2xl text-white hover:bg-white/10 transition"
-              >
-                <X className="w-5 h-5 md:w-6 md:h-6" />
-              </button>
-            </div>
+    {/* --- MODERN MODAL --- */}
+{selectedCountry && (
+  <div className="fixed inset-0 z-100 flex items-end md:items-center justify-center p-0 md:p-4">
+    {/* Ultra-dark backdrop with heavy blur */}
+    <div 
+      className="fixed inset-0 bg-brand-dark/40 backdrop-blur-2xl animate-in fade-in duration-500" 
+      onClick={() => setSelectedCountry(null)} 
+    />
+    
+    <div className="relative w-full max-w-xl bg-white/[0.03] border border-white/10 md:rounded-[3rem] rounded-t-[3rem] shadow-[0_0_50px_-12px_rgba(0,0,0,0.5)] overflow-hidden animate-in slide-in-from-bottom-10 duration-500 flex flex-col">
+      
+      {/* Decorative Gradient Glow behind content */}
+      <div className="absolute -top-24 -left-24 w-64 h-64 bg-brand-violet/20 blur-[100px] pointer-events-none" />
+      
+      {/* 1. Header with integrated close */}
+      <div className="relative p-8 pb-4 flex justify-between items-center">
+        <div>
+          <div className="flex items-center gap-2 mb-1">
+            <span className="h-1.5 w-1.5 rounded-full bg-brand-sky animate-pulse" />
+            <span className="text-[10px] font-black uppercase tracking-[0.2em] text-brand-sky">Visa Details</span>
+          </div>
+          <h3 className="text-4xl md:text-5xl font-black tracking-tighter italic">
+            {selectedCountry.name}
+          </h3>
+        </div>
+        <button 
+          onClick={() => setSelectedCountry(null)} 
+          className="group p-4 bg-white/5 hover:bg-white/10 rounded-full transition-all active:scale-90 border border-white/5"
+        >
+          <X className="w-5 h-5 text-white group-hover:rotate-90 transition-transform" />
+        </button>
+      </div>
 
-            <div className="bg-linear-to-br from-brand-violet/20 via-brand-violet/5 to-transparent p-4 md:p-6 rounded-3xl md:rounded-4xl border border-brand-violet/30 mb-6 flex justify-between items-center">
-              <div className="flex items-center gap-3 md:gap-4">
-                <div className="w-10 h-10 md:w-14 md:h-14 bg-brand-violet rounded-xl md:rounded-2xl flex items-center justify-center shadow-lg text-white">
-                  <CreditCard className="w-5 h-5 md:w-6 md:h-6" />
+      <div className="p-8 pt-0 space-y-6">
+        {/* 2. Fee Bento Box (Glass Style) */}
+        <div className="group relative overflow-hidden bg-white/5 border border-white/10 rounded-[2rem] p-6 transition-all hover:border-brand-violet/50">
+          <div className="flex justify-between items-end relative z-10">
+            <div>
+              <p className="text-[10px] font-black uppercase text-brand-lavender tracking-widest mb-3 opacity-60">Application Fee</p>
+              <div className="flex items-baseline gap-1">
+                <span className="text-4xl font-black tracking-tighter">499</span>
+                <span className="text-sm font-bold text-brand-sky uppercase">QAR</span>
+              </div>
+            </div>
+            <div className="w-12 h-12 bg-linear-to-br from-brand-violet to-[#FF7BAC] rounded-2xl flex items-center justify-center shadow-lg shadow-brand-violet/20">
+              <CreditCard className="w-6 h-6 text-white" />
+            </div>
+          </div>
+          {/* Subtle background text */}
+          <span className="absolute -bottom-2 -right-2 text-6xl font-black text-white/[0.02] select-none uppercase">Visa</span>
+        </div>
+
+        {/* 3. Document Checklist (Simplified) */}
+        <div className="space-y-4">
+          <h4 className="text-[10px] font-black uppercase tracking-[0.2em] text-brand-lavender pl-1">Required Dossier</h4>
+          <div className="grid gap-2">
+            {selectedCountry.docs.map((doc, idx) => (
+              <div key={idx} className="flex items-center gap-4 bg-white/[0.02] hover:bg-white/[0.05] border border-white/5 p-4 rounded-2xl transition-colors group/item">
+                <div className="w-8 h-8 rounded-xl bg-white/5 flex items-center justify-center group-hover/item:text-brand-sky transition-colors">
+                  <FileText className="w-4 h-4" />
                 </div>
-                <div>
-                  <p className="text-[9px] uppercase font-black text-brand-lavender tracking-widest mb-1">Fee</p>
-                  <p className="text-xl md:text-3xl font-black tracking-tighter">499 QAR</p>
-                </div>
+                <span className="text-sm font-bold tracking-tight text-white/80">{doc}</span>
               </div>
-              <span className="text-[8px] md:text-[10px] font-black uppercase text-brand-sky tracking-widest text-right">Visa + Service Fee</span>
-            </div>
-
-            <div className="mb-8">
-              <h4 className="text-[10px] font-black uppercase tracking-widest text-brand-sky mb-4">Mandatory Documents</h4>
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 md:gap-3">
-                {selectedCountry.docs.map((doc, idx) => (
-                  <div key={idx} className="flex items-center gap-3 bg-white/5 p-3 md:p-4 rounded-xl md:rounded-2xl border border-white/5">
-                    <FileText className="w-4 h-4 text-brand-lavender" />
-                    <span className="text-xs md:text-sm font-bold">{doc}</span>
-                  </div>
-                ))}
-              </div>
-            </div>
-
-            <button 
-              onClick={() => router.push(`/visa/${selectedCountry.name.toLowerCase()}`)}
-              className="w-full bg-linear-to-r from-[#FF7BAC] to-[#FF4CA1] py-4 md:py-5 rounded-3xl md:rounded-4xl font-black text-lg md:text-xl shadow-2xl flex items-center justify-center gap-3 hover:scale-[1.02] active:scale-95 transition-all text-white"
-            >
-              Start Application <ArrowRight className="w-5 h-5 md:w-6 md:h-6" />
-            </button>
+            ))}
           </div>
         </div>
-      )}
+
+        {/* 4. Action Area */}
+        <div className="pt-4 relative">
+          {/* Button Glow Effect */}
+          <div className="absolute inset-0 bg-linear-to-r from-[#FF7BAC] to-[#FF4CA1] blur-2xl opacity-20" />
+          
+          <button 
+            onClick={() => router.push(`/visa/${selectedCountry.name.toLowerCase()}`)}
+            className="relative w-full bg-linear-to-r from-[#FF7BAC] to-[#FF4CA1] py-5 rounded-4xl font-black text-lg shadow-xl flex items-center justify-center gap-3 hover:shadow-pink-500/20 active:scale-[0.98] transition-all group"
+          >
+            Start Application 
+            <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
+          </button>
+          
+          <p className="text-center text-[10px] text-brand-lavender/40 mt-4 uppercase font-bold tracking-widest">
+            Estimated Processing: 3-5 Working Days
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+)}
     </div>
   );
 }
