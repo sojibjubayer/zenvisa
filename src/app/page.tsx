@@ -57,7 +57,7 @@ export default function ZenVisasFullPage() {
         <div className="max-w-7xl mx-auto flex justify-between items-center">
           <div className="flex items-center gap-3">
             <div className="w-8 h-8 md:w-10 md:h-10 bg-linear-to-r from-[#FF7BAC] to-[#FF4CA1] rounded-xl flex items-center justify-center font-black shadow-lg shadow-pink-500/20 text-white text-lg md:text-xl">Z</div>
-            <span className="text-xl md:text-2xl font-black tracking-tighter uppercase">ZenVisas</span>
+            <span className="text-xl md:text-2xl font-black tracking-tighter uppercase">VisaSlide</span>
           </div>
           <button className="hidden sm:block bg-white/5 border border-white/10 px-6 py-2.5 rounded-full text-sm font-bold hover:bg-white/10 transition-all">
             Join Platform
