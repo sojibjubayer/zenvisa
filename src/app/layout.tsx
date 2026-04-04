@@ -13,7 +13,7 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "ZenVisas | Automated Visa Platform",
+  title: "Visa Slide | Automated Visa Platform",
   description: "Simple, automated, and secure visa assistance.",
 };
 
