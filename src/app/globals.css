@@ -1,19 +1,28 @@
 @import "tailwindcss";
 
 @theme {
-  /* Specification Primary Palette */
-  --color-brand-dark: #2D1B3F;
+  --color-brand-dark: #0F0817;
   --color-brand-violet: #6A3FB4;
-  /* Secondary Palette */
   --color-brand-lavender: #9C6ADE;
   --color-brand-sky: #6EC5E9;
-  /* Imagery Tones */
   --color-brand-tiger: #E5A13E;
   --color-brand-gunmetal: #213638;
-  
-  --background-image-sunset: linear-gradient(to right, #FF7BAC, #FF4CA1);
+
+  /* added premium surfaces */
+  --color-brand-surface: #12182B;
+  --color-brand-surface-2: #18213A;
+  --color-brand-text-muted: #94A3B8;
+  --color-brand-border: rgba(255, 255, 255, 0.08);
+
+  /* premium no-pink main gradient */
+  --background-image-primary: linear-gradient(135deg, #7C6CFF, #6EC5E9);
+
+  /* subtle page glow */
+  --background-image-glow:
+    radial-gradient(circle at top, rgba(124, 108, 255, 0.18), transparent 35%),
+    radial-gradient(circle at right, rgba(110, 197, 233, 0.14), transparent 30%);
 }
 
 body {
-  @apply bg-brand-dark text-white selection:bg-brand-violet antialiased;
+  @apply bg-brand-dark text-white antialiased;
 }
