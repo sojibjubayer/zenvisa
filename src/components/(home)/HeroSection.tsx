@@ -229,7 +229,7 @@ export default function HeroSection({ onProceed }: Props) {
                 disabled={!nationality || !destination}
                 className="group w-full lg:w-auto px-8 py-4 rounded-2xl font-bold text-white flex items-center justify-center gap-2 bg-brand-sky hover:bg-brand-sky/90 shadow-lg shadow-brand-sky/20 transition-all active:scale-95 disabled:opacity-30 disabled:grayscale disabled:cursor-not-allowed"
               >
-                Start Application
+                Check Requirements
                 <ArrowRight className="w-5 h-5 transition-transform group-hover:translate-x-1" />
               </button>
             </div>
