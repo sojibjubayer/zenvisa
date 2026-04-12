@@ -247,7 +247,7 @@ export default function HeroSection({ onProceed }: Props) {
             <div className="flex items-center gap-2">
               <div className="h-1 w-1 rounded-full bg-brand-sky" />
               24/7 Support
-            </div>
+            </div> 
           </div>
         </div>
       </div>
