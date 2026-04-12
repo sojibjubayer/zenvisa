@@ -17,7 +17,6 @@ export default function Page() {
 
   const [mounted, setMounted] = useState(false);
   const [selectedCountry, setSelectedCountry] = useState<Destination | null>(null);
-  const [navSelection, setNavSelection] = useState("");
 
   useEffect(() => {
     setMounted(true);
@@ -41,9 +40,9 @@ export default function Page() {
     };
   }, [selectedCountry]);
 
-  const handleProceed = () => {
-    if (!navSelection) return;
-    router.push(`/visa/${navSelection.toLowerCase()}`);
+  const handleProceed = (payload?: { nationality: string; destination: string }) => {
+    if (!payload?.destination) return;
+    router.push(`/visa/${payload.destination.toLowerCase()}`);
   };
 
   if (!mounted) {
@@ -58,8 +57,6 @@ export default function Page() {
 
       <HeroSection
         destinations={destinations}
-        navSelection={navSelection}
-        setNavSelection={setNavSelection}
         onProceed={handleProceed}
       />
 
