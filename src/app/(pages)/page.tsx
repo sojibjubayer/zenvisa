@@ -40,9 +40,23 @@ export default function Page() {
     };
   }, [selectedCountry]);
 
+  const slugify = (value: string) =>
+    value
+      .toLowerCase()
+      .trim()
+      .replace(/&/g, "and")
+      .replace(/[^\w\s-]/g, "")
+      .replace(/\s+/g, "-")
+      .replace(/-+/g, "-");
+
   const handleProceed = (payload?: { nationality: string; destination: string }) => {
-    if (!payload?.destination) return;
-    router.push(`/visa/${payload.destination.toLowerCase()}`);
+    if (!payload?.nationality || !payload?.destination) return;
+
+    const countrySlug = slugify(payload.destination);
+
+    router.push(
+      `/visa/${countrySlug}?nationality=${encodeURIComponent(payload.nationality)}`
+    );
   };
 
   if (!mounted) {
