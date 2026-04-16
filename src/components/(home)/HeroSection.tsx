@@ -2,257 +2,87 @@
 
 import { ChevronDown, ArrowRight, ShieldCheck } from "lucide-react";
 import { useEffect, useMemo, useState } from "react";
+import { motion } from "framer-motion";
 import Steps from "./Steps";
 
-type Destination = {
-  id: string | number;
-  name: string;
-};
-
-type Props = {
-  destinations?: Destination[];
-  onProceed: (payload?: { nationality: string; destination: string }) => void;
-};
-
-const EVISA_BY_NATIONALITY: Record<string, string[]> = {
-  India: [
-    "Armenia",
-    "Azerbaijan",
-    "Bahrain",
-    "Benin",
-    "Cambodia",
-    "Colombia",
-    "Côte d’Ivoire",
-    "Djibouti",
-    "Ethiopia",
-    "Gabon",
-    "Georgia",
-    "Iran",
-    "Kazakhstan",
-    "Kenya",
-    "Laos",
-    "Madagascar",
-    "Malawi",
-    "Malaysia",
-    "Moldova",
-    "Myanmar",
-    "Nigeria",
-    "Oman",
-    "Russia",
-    "Rwanda",
-    "São Tomé and Príncipe",
-    "Saudi Arabia",
-    "Singapore",
-    "South Sudan",
-    "Sri Lanka",
-    "Tajikistan",
-    "Tanzania",
-    "Thailand",
-    "Turkey",
-    "Uganda",
-    "Uzbekistan",
-    "Vietnam",
-    "Zambia",
-    "Zimbabwe",
-  ],
-  Bangladesh: [
-    "Bahrain",
-    "Benin",
-    "Cambodia",
-    "Colombia",
-    "Malaysia",
-    "Moldova",
-    "Oman",
-    "Pakistan",
-    "São Tomé and Príncipe",
-    "Singapore",
-    "South Korea",
-    "South Sudan",
-  ],
-  Nepal: [
-    "Azerbaijan",
-    "Bahrain",
-    "Benin",
-    "Cambodia",
-    "Iran",
-    "Malaysia",
-    "Moldova",
-    "Myanmar",
-    "Oman",
-  ],
-  Pakistan: [
-    "Bahrain",
-    "Benin",
-    "Cambodia",
-    "Malaysia",
-    "Moldova",
-    "Myanmar",
-    "Oman",
-    "Saudi Arabia",
-    "South Korea",
-    "South Sudan",
-  ],
-  "Sri Lanka": [
-    "Azerbaijan",
-    "Bahrain",
-    "Cambodia",
-    "Malaysia",
-    "Moldova",
-  ],
-};
-
-export default function HeroSection({ onProceed }: Props) {
+export default function HeroSection({ onProceed }: any) {
   const [nationality, setNationality] = useState("");
   const [destination, setDestination] = useState("");
 
-  const nationalities = useMemo(
-    () => Object.keys(EVISA_BY_NATIONALITY),
-    []
-  );
-
-  const availableDestinations = useMemo(() => {
-    if (!nationality) return [];
-    return EVISA_BY_NATIONALITY[nationality] || [];
-  }, [nationality]);
-
-  useEffect(() => {
-    setDestination("");
-  }, [nationality]);
-
-  const handleProceed = () => {
-    if (!nationality || !destination) return;
-    onProceed({ nationality, destination });
-  };
+  const nationalities = ["India", "Bangladesh", "Nepal", "Pakistan", "Sri Lanka"];
 
   return (
-    <section className="relative min-h-[80vh] flex items-center justify-center overflow-hidden px-4 sm:px-6 py-20 text-center">
-      <div className="absolute inset-0 z-0">
-        <img
-          src="/images/hero/hero-bg.webp"
-          alt="Travel background"
-          className="h-full w-full object-cover"
-        />
-        <div className="absolute inset-0 bg-linear-to-b from-brand-dark/90 via-brand-dark/80 to-brand-dark/95" />
+    <section className="relative min-h-screen flex items-center justify-center overflow-hidden bg-[#09090b] px-4 pt-32 pb-20">
+      
+      {/* --- Solid Background Control --- */}
+      <div className="absolute inset-0 pointer-events-none">
+        {/* Subtle Zinc Grid */}
+        <div className="absolute inset-0 bg-[linear-gradient(to_right,#ffffff05_1px,transparent_1px),linear-gradient(to_bottom,#ffffff05_1px,transparent_1px)] bg-size-[45px_45px] opacity-20" />
+        
+        {/* GLOW POSITIONED MUCH LOWER TO AVOID NAVBAR BLEED */}
+        <div className="absolute top-[40%] left-1/2 -translate-x-1/2 w-200 h-125 bg-blue-600/10 blur-[120px] rounded-full" />
       </div>
 
-      <div className="relative z-10 max-w-6xl mx-auto">
-        <div className="inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/5 px-4 py-2 backdrop-blur-md mb-8 animate-in fade-in slide-in-from-bottom-4 duration-700">
-          <ShieldCheck className="w-4 h-4 text-brand-sky" />
-          <span className="text-xs font-bold uppercase tracking-widest text-brand-sky">
-            Official 100% Online Process
+      <div className="relative z-10 max-w-6xl mx-auto text-center">
+        {/* Compliance Badge */}
+        <motion.div 
+          initial={{ opacity: 0, y: 10 }}
+          animate={{ opacity: 1, y: 0 }}
+          className="inline-flex items-center gap-2 rounded-full border border-zinc-800 bg-zinc-900/50 px-4 py-2 mb-8"
+        >
+          <ShieldCheck className="w-3.5 h-3.5 text-blue-500" />
+          <span className="text-[9px] font-black uppercase tracking-[0.3em] text-zinc-500">
+            Doha Strategic Center Verified
           </span>
-        </div>
+        </motion.div>
 
-        <h1 className="text-4xl sm:text-6xl lg:text-7xl font-black tracking-tight leading-[1.1] mb-6 text-white">
-          Apply for Your <br />
-          <span className="text-transparent bg-clip-text bg-linear-to-r from-brand-sky to-white">
-            Visa in Minutes
+        {/* REVERTED COPY: Real-Time Visa Guide */}
+        <h1 className="text-6xl md:text-9xl font-black italic tracking-tighter uppercase leading-[0.8] mb-12 text-zinc-100">
+          Real-Time <br />
+          <span className="text-transparent bg-clip-text bg-linear-to-r from-blue-500 via-zinc-200 to-zinc-500">
+            Visa Guide.
           </span>
         </h1>
 
-        <div className="max-w-4xl mx-auto mb-12">
+        <div className="max-w-3xl mx-auto mb-20 opacity-30 grayscale">
           <Steps />
         </div>
 
-        <div className="max-w-4xl mx-auto">
-          <div className="group relative rounded-3xl border border-white/10 bg-white/5 backdrop-blur-2xl p-2 sm:p-3 shadow-2xl transition-all hover:border-white/20">
-            <div className="flex flex-col lg:flex-row gap-3">
-              <div className="relative flex-1">
-                <select
+        {/* Selection Console */}
+        <div className="max-w-5xl mx-auto">
+          <div className="relative rounded-2xl border border-zinc-800 bg-zinc-900/40 backdrop-blur-3xl p-3 shadow-2xl">
+            <div className="flex flex-col lg:flex-row gap-2">
+              <div className="relative flex-1 group">
+                <select 
+                  className="w-full appearance-none rounded-xl bg-zinc-950 border border-zinc-800 px-6 py-5 text-[10px] font-black uppercase tracking-widest text-zinc-200 outline-none focus:border-blue-500 transition-all cursor-pointer"
                   value={nationality}
                   onChange={(e) => setNationality(e.target.value)}
-                  className={`w-full appearance-none rounded-2xl bg-white/5 border border-white/10 px-6 py-4 pr-12 text-sm sm:text-base font-medium outline-none focus:ring-2 focus:ring-brand-sky/30 transition-all cursor-pointer ${
-                    !nationality ? "text-white/40" : "text-white"
-                  }`}
                 >
-                  <option
-                    value=""
-                    disabled
-                    className="bg-brand-dark text-white/50"
-                  >
-                    Select your nationality
-                  </option>
-
-                  {nationalities.map((item) => (
-                    <option
-                      key={item}
-                      value={item}
-                      className="bg-brand-dark text-white"
-                    >
-                      {item}
-                    </option>
-                  ))}
+                  <option value="">Citizenship</option>
+                  {nationalities.map(n => <option key={n} value={n}>{n}</option>)}
                 </select>
-
-                <div className="pointer-events-none absolute right-4 top-1/2 -translate-y-1/2 text-white/40 transition-colors">
-                  <ChevronDown className="w-5 h-5" />
-                </div>
+                <ChevronDown className="absolute right-4 top-1/2 -translate-y-1/2 w-4 h-4 text-zinc-700 group-hover:text-blue-500" />
               </div>
 
-              <div className="relative flex-1">
-                <select
+              <div className="relative flex-1 group">
+                <select 
+                  className="w-full appearance-none rounded-xl bg-zinc-950 border border-zinc-800 px-6 py-5 text-[10px] font-black uppercase tracking-widest text-zinc-200 outline-none focus:border-blue-500 transition-all cursor-pointer disabled:opacity-20"
                   value={destination}
                   onChange={(e) => setDestination(e.target.value)}
-                  disabled={!nationality}
-                  className={`w-full appearance-none rounded-2xl bg-white/5 border border-white/10 px-6 py-4 pr-12 text-sm sm:text-base font-medium outline-none focus:ring-2 focus:ring-brand-sky/30 transition-all cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed ${
-                    !destination ? "text-white/40" : "text-white"
-                  }`}
                 >
-                  <option
-                    value=""
-                    disabled
-                    className="bg-brand-dark text-white/50"
-                  >
-                    {nationality
-                      ? "Where are you traveling to?"
-                      : "Select nationality first"}
-                  </option>
-
-                  {availableDestinations.map((country) => (
-                    <option
-                      key={country}
-                      value={country}
-                      className="bg-brand-dark text-white"
-                    >
-                      {country}
-                    </option>
-                  ))}
+                  <option value="">Destination</option>
                 </select>
-
-                <div className="pointer-events-none absolute right-4 top-1/2 -translate-y-1/2 text-white/40 transition-colors">
-                  <ChevronDown className="w-5 h-5" />
-                </div>
+                <ChevronDown className="absolute right-4 top-1/2 -translate-y-1/2 w-4 h-4 text-zinc-700 group-hover:text-blue-500" />
               </div>
 
-              <button
-                onClick={handleProceed}
-                disabled={!nationality || !destination}
-                className="group w-full lg:w-auto px-8 py-4 rounded-2xl font-bold text-white flex items-center justify-center gap-2 bg-brand-sky hover:bg-brand-sky/90 shadow-lg shadow-brand-sky/20 transition-all active:scale-95 disabled:opacity-30 disabled:grayscale disabled:cursor-not-allowed"
-              >
-                Check Requirements
-                <ArrowRight className="w-5 h-5 transition-transform group-hover:translate-x-1" />
+              <button className="px-10 py-5 rounded-xl font-black text-[10px] uppercase tracking-widest text-white bg-blue-600 hover:bg-blue-500 transition-all active:scale-95 flex items-center justify-center gap-3">
+                Verify Requirements
+                <ArrowRight size={14} />
               </button>
             </div>
           </div>
-
-          <div className="mt-8 flex flex-wrap items-center justify-center gap-x-6 gap-y-3 text-[10px] sm:text-xs font-bold text-white/30 uppercase tracking-[0.2em]">
-            <div className="flex items-center gap-2">
-              <div className="h-1 w-1 rounded-full bg-brand-sky" />
-              No Embassy Visit
-            </div>
-            <div className="flex items-center gap-2">
-              <div className="h-1 w-1 rounded-full bg-brand-sky" />
-              Secure Encrypted Payment
-            </div>
-            <div className="flex items-center gap-2">
-              <div className="h-1 w-1 rounded-full bg-brand-sky" />
-              24/7 Support
-            </div> 
-          </div>
         </div>
       </div>
-
-      <div className="absolute bottom-0 left-0 right-0 h-32 bg-linear-to-t from-brand-dark to-transparent z-10" />
     </section>
   );
 }

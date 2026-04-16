@@ -3,10 +3,8 @@
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 
-import Navbar from "@/components/(home)/Navbar";
 import HeroSection from "@/components/(home)/HeroSection";
 import PopularSection from "@/components/(home)/PopularSection";
-import Footer from "@/components/(home)/Footer";
 import CountryModal from "@/components/(home)/CountryModal";
 
 import { destinations } from "@/data/destinations";
@@ -60,14 +58,18 @@ export default function Page() {
   };
 
   if (!mounted) {
-    return <div className="min-h-screen bg-brand-dark" />;
+    // Ensuring fallback uses the solid Industrial Gray color
+    return <div className="min-h-screen bg-[#09090b]" />;
   }
 
   return (
-    <div className="min-h-screen pb-10 bg-brand-dark text-white font-sans selection:bg-white/10">
-      <div className="absolute inset-0 -z-10 bg-glow" />
-
-      <Navbar />
+    // Changed bg-brand-dark to solid #09090b for Industrial Gray consistency
+    <div className="min-h-screen pb-10 bg-[#09090b] text-white font-sans selection:bg-white/10 overflow-x-hidden">
+      
+      {/* FIX: DELETED THE GLOBAL bg-glow DIV. 
+          The HeroSection now manages its own masked background 
+          so the top area remains solid and dark for the Navbar.
+      */}
 
       <HeroSection
         destinations={destinations}
@@ -78,8 +80,6 @@ export default function Page() {
         destinations={destinations}
         setSelected={setSelectedCountry}
       />
-
-      <Footer />
 
       <CountryModal
         selectedCountry={selectedCountry}
