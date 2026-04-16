@@ -43,11 +43,18 @@ export default function Navbar() {
           {/* Brand & Live Pulse */}
           <Link href="/" className="group flex items-center gap-3 md:gap-4">
             <div className="relative flex h-9 w-9 md:h-10 md:w-10 items-center justify-center rounded-xl bg-zinc-900 border border-zinc-800 transition-colors group-hover:border-blue-500/50">
-              <div className="relative h-5 w-5 md:h-6 md:w-6">
-                <Image src="/logo.webp" alt="VisaSlide" fill sizes="40px" className="object-contain" priority />
+              <div className="relative h-8 w-8 md:h-10 md:w-10">
+                <Image
+                  src="/logo.png"
+                  alt="VisaSlide"
+                  fill
+                  sizes="(max-width: 768px) 20px, 24px" // Precise sizing for h-5 (20px) and h-6 (24px)
+                  className="object-contain"
+                  priority
+                />
               </div>
             </div>
-            
+
             <div className="flex flex-col">
               <div className="flex items-center gap-1.5 md:gap-2">
                 <h1 className="text-base md:text-lg font-black tracking-tighter text-white uppercase italic leading-none">
@@ -58,7 +65,9 @@ export default function Navbar() {
                   <span className="relative inline-flex rounded-full h-1.5 w-1.5 bg-blue-500"></span>
                 </div>
               </div>
-              <span className="text-[7px] md:text-[8px] font-black text-zinc-500 tracking-[.2em] md:tracking-[.3em] uppercase">Automated Center</span>
+              <span className="text-[7px] md:text-[8px] font-black text-zinc-500 tracking-[.2em] md:tracking-[.3em] uppercase">
+                Automated Center
+              </span>
             </div>
           </Link>
 
@@ -76,10 +85,14 @@ export default function Navbar() {
                 >
                   <span className="relative z-10">{link.name}</span>
                   {isActive && (
-                    <motion.span 
+                    <motion.span
                       layoutId="activeGlow"
                       className="absolute inset-0 bg-zinc-900 border-b-2 border-blue-500 rounded-md"
-                      transition={{ type: "spring", stiffness: 380, damping: 30 }}
+                      transition={{
+                        type: "spring",
+                        stiffness: 380,
+                        damping: 30,
+                      }}
                     />
                   )}
                 </Link>
@@ -90,8 +103,10 @@ export default function Navbar() {
           {/* Actions */}
           <div className="flex items-center gap-2 md:gap-3">
             <div className="hidden xl:flex items-center gap-3 rounded-lg border border-zinc-800 bg-zinc-900 px-4 py-2">
-               <Activity className="h-3 w-3 text-blue-500 animate-pulse" />
-               <span className="text-[9px] font-black text-blue-500 uppercase italic tracking-tighter">Live Systems</span>
+              <Activity className="h-3 w-3 text-blue-500 animate-pulse" />
+              <span className="text-[9px] font-black text-blue-500 uppercase italic tracking-tighter">
+                Live Systems
+              </span>
             </div>
 
             <Link
@@ -101,10 +116,12 @@ export default function Navbar() {
               Start Submission
             </Link>
 
-            <button 
-              onClick={() => setIsOpen(!isOpen)} 
+            <button
+              onClick={() => setIsOpen(!isOpen)}
               className={`flex h-9 w-9 items-center justify-center rounded-xl border transition-all lg:hidden ${
-                isOpen ? "bg-blue-600 border-blue-500 text-white" : "bg-zinc-900 border-zinc-800 text-zinc-400"
+                isOpen
+                  ? "bg-blue-600 border-blue-500 text-white"
+                  : "bg-zinc-900 border-zinc-800 text-zinc-400"
               }`}
             >
               {isOpen ? <X size={18} /> : <Menu size={18} />}
@@ -125,7 +142,9 @@ export default function Navbar() {
             {/* Mobile Menu Content */}
             <div className="flex flex-col h-full">
               <div className="space-y-1 mb-10">
-                <p className="text-[10px] font-black text-blue-500 tracking-[.4em] uppercase">Navigation</p>
+                <p className="text-[10px] font-black text-blue-500 tracking-[.4em] uppercase">
+                  Navigation
+                </p>
                 <div className="h-0.5 w-8 bg-zinc-800" />
               </div>
 
@@ -144,7 +163,9 @@ export default function Navbar() {
                       }`}
                     >
                       <span>{link.name}</span>
-                      {pathname === link.href && <ArrowRight className="text-blue-500 h-8 w-8" />}
+                      {pathname === link.href && (
+                        <ArrowRight className="text-blue-500 h-8 w-8" />
+                      )}
                     </Link>
                   </motion.div>
                 ))}
@@ -162,11 +183,15 @@ export default function Navbar() {
                 <div className="flex items-center justify-between border-t border-zinc-900 pt-6">
                   <div className="flex items-center gap-2">
                     <Globe className="h-3 w-3 text-zinc-600" />
-                    <span className="text-[9px] font-black text-zinc-600 uppercase tracking-widest">Doha / Dhaka / London</span>
+                    <span className="text-[9px] font-black text-zinc-600 uppercase tracking-widest">
+                      Doha / Dhaka / London
+                    </span>
                   </div>
                   <div className="flex items-center gap-2">
                     <div className="h-1.5 w-1.5 rounded-full bg-blue-500 animate-pulse" />
-                    <span className="text-[9px] font-black text-blue-500 uppercase tracking-widest italic">Encrypted</span>
+                    <span className="text-[9px] font-black text-blue-500 uppercase tracking-widest italic">
+                      Encrypted
+                    </span>
                   </div>
                 </div>
               </div>

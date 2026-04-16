@@ -17,6 +17,11 @@ const geistMono = Geist_Mono({
 export const metadata: Metadata = {
   title: "Visa Slide | Automated Visa Platform",
   description: "Simple, automated, and secure visa assistance.",
+  // --- ICON ADDED HERE ---
+  icons: {
+    icon: "/logo.png",
+    apple: "/logo.png", // Optional: for iOS home screen
+  },
 };
 
 export default function RootLayout({ 
@@ -31,6 +36,7 @@ export default function RootLayout({
         className={`${geistSans.variable} ${geistMono.variable} bg-brand-dark text-white font-sans`}
       >
         <Navbar />
+        {/* Adjusted pt-16 to ensure no overlap with the fixed navbar */}
         <main className="pt-16">{children}</main>
         <Footer />
       </body>
