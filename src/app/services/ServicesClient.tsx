@@ -13,28 +13,28 @@ const services = [
   {
     id: "VS-01",
     title: "E-Visa Verification",
-    desc: "Smart auditing for Tourist and Visit Visas. We verify your passport and papers against 2026 embassy standards to guarantee 100% approval accuracy.",
+    desc: "Smart auditing for digital visa applications. We verify your passport and papers against 2026 embassy standards to guarantee 100% submission accuracy.",
     icon: <FileCheck className="w-6 h-6 text-blue-400" />,
     bg: "bg-blue-500/5",
   },
   {
     id: "VS-02",
-    title: "Regional Logistics",
-    desc: "Complete processing for South Asian professionals and GCC residents. Specialized outbound channels for Bangladesh, India, and Pakistan travelers seeking international permits.",
+    title: "Tourist & Visit Permits",
+    desc: "Complete logistics for South Asian professionals and GCC residents. Specialized outbound channels for international Visit and Tourist Visa requirements.",
     icon: <Globe className="w-6 h-6 text-zinc-400" />,
     bg: "bg-white/5",
   },
   {
     id: "VS-03",
-    title: "Express Processing",
-    desc: "Urgent visa handling for business travelers and tourists. Our 'Velocity' system bypasses standard wait times for faster digital approvals.",
+    title: "Business Tourist Hub",
+    desc: "Expedited processing for high-priority Business Tourist requirements. Our 'Velocity' engine bypasses standard wait times for faster approvals.",
     icon: <Zap className="w-6 h-6 text-blue-500" />,
     bg: "bg-blue-600/5",
   },
   {
     id: "VS-04",
     title: "Embassy Compliance",
-    desc: "24/7 monitoring of global visa policy shifts. Our specialists ensure your application follows the latest entry regulations for any destination.",
+    desc: "24/7 monitoring of real-time shifts in global entry regulations. Our specialists ensure your file follows the latest protocols for Doha & Dhaka.",
     icon: <GanttChartSquare className="w-6 h-6 text-blue-300" />,
     bg: "bg-white/5",
   },
@@ -79,7 +79,6 @@ export default function ServicesClient() {
 
         {/* Services Grid */}
         <section className="max-w-7xl mx-auto">
-          {/* FIXED: items-stretch ensures all cards in a row have the same height */}
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 items-stretch">
             {services.map((s, i) => (
               <motion.div
@@ -88,20 +87,20 @@ export default function ServicesClient() {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ delay: i * 0.1 }}
-                // h-full here makes the motion div fill the grid cell
                 className={`group relative flex flex-col h-full rounded-2xl border border-white/5 ${s.bg} p-6 md:p-8 transition-all duration-500 hover:bg-zinc-950 shadow-2xl overflow-hidden`}
               >
                 <div className="relative z-10 flex flex-col h-full">
-                  <div className="flex justify-between items-start mb-8 md:mb-12">
+                  {/* Card Top */}
+                  <div className="flex justify-between items-start mb-10">
                     <div className="h-12 w-12 md:h-14 md:w-14 rounded-xl bg-black flex items-center justify-center border border-white/10 shadow-2xl group-hover:border-blue-500/50 transition-colors shrink-0">
                       {s.icon}
                     </div>
-                    <span className="text-4xl md:text-6xl font-black italic text-white/5 group-hover:text-blue-500/10 transition-colors leading-none select-none">
-                      {s.id.split('-').pop()} {/* Displays the number part */}
+                    <span className="text-4xl md:text-5xl font-black italic text-white/5 group-hover:text-blue-500/10 transition-colors leading-none select-none">
+                      {s.id.split('-').pop()}
                     </span>
                   </div>
 
-                  {/* flex-grow pushes the footer to the bottom of the card */}
+                  {/* Card Body - Content stretches to push footer down */}
                   <div className="grow">
                     <h3 className="text-lg md:text-xl font-black italic uppercase tracking-tighter mb-3 leading-tight group-hover:text-blue-400 transition-colors">
                       {s.title}
@@ -111,6 +110,7 @@ export default function ServicesClient() {
                     </p>
                   </div>
 
+                  {/* Card Footer - Locked to bottom */}
                   <div className="pt-6 border-t border-white/5 flex items-center justify-between mt-auto">
                     <div className="flex items-center gap-2">
                       <div className="h-1.5 w-1.5 rounded-full bg-blue-500 animate-pulse" />
@@ -124,6 +124,7 @@ export default function ServicesClient() {
                   </div>
                 </div>
 
+                {/* Animated Accent Line */}
                 <div className="absolute bottom-0 left-0 right-0 h-1 bg-blue-600 transform scale-x-0 group-hover:scale-x-100 transition-transform origin-left duration-500" />
               </motion.div>
             ))}

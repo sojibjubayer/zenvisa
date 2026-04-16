@@ -2,21 +2,23 @@ import { Metadata } from "next";
 import AboutClient from "./AboutClient";
 
 export const metadata: Metadata = {
-  title: "Outbound Visa Intelligence | Global Digital Logistics 2026 | VisaSlide",
-  description: "The elite digital gateway for Qatar and Bangladesh residents. High-velocity outbound visa auditing, secure remote verification, and instant digital payment protocols.",
+  title: "About VisaSlide | E-Visa, Visit & Business Tourist Engine",
+  description: "100% Digital outbound gateway for Qatar and Bangladesh residents. Apply from home for Visit, Tourist, and Business E-Visas with high-velocity auditing and secure remote verification.",
   keywords: [
-    "Digital Visa Audit Qatar", 
-    "Expedited Bangladesh Outbound", 
-    "Premium GCC Travel Logistics", 
-    "Contactless Visa Verification 2026",
-    "Secure Online Travel Payments South Asia"
+    "Apply E-Visa from Home",
+    "Tourist Visa Online Qatar",
+    "Visit Visa Bangladesh Outbound",
+    "Business Visit Visa Engine",
+    "Digital Visa Engine Doha",
+    "Remote Visa Verification 2026",
+    "GCC Outbound Travel Logistics"
   ],
   alternates: {
     canonical: "https://visaslide.com/about",
   },
   openGraph: {
-    title: "VisaSlide | Precision Outbound Architecture",
-    description: "100% Digital. 100% Remote. The future of global mobility from the GCC to the world.",
+    title: "VisaSlide | Precision Outbound E-Visa Architecture",
+    description: "Apply from Home. 100% Digital. The future of global mobility for Visit, Tourist, and Business travelers.",
     images: ["/og-about-premium.jpg"],
   },
 };
@@ -25,8 +27,11 @@ export default function AboutPage() {
   return (
     <div className="bg-[#020202]">
       {/* Invisible SEO structure for 2026 Crawlers */}
-      <h1 className="sr-only">VisaSlide: Elite Digital Outbound Infrastructure in Doha and Dhaka</h1>
+      <h1 className="sr-only">
+        VisaSlide: Automated E-Visa, Visit, and Business Tourist Infrastructure in Doha and Dhaka
+      </h1>
       <AboutClient />
     </div>
   );
 }
+
