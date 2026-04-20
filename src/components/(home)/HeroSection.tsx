@@ -1,114 +1,272 @@
 "use client";
 
-import { ChevronDown, ArrowRight, ShieldCheck } from "lucide-react";
-import { useState } from "react";
+import { ChevronDown, ArrowRight, FileText, ShieldCheck, Truck, Globe2 } from "lucide-react";
+import { useMemo, useState } from "react";
 import { motion } from "framer-motion";
-import Steps from "./Steps";
+import type { Destination } from "@/types/destination";
 
-export default function HeroSection({ onProceed, destinations }: any) {
+type ProceedPayload = {
+  currentResidence: string;
+  nationality: string;
+  destination: string;
+  visaType: string;
+  serviceType: "online" | "doorstep";
+};
+
+type Props = {
+  onProceed?: (payload?: ProceedPayload) => void;
+  destinations?: Destination[];
+};
+
+export default function HeroSection({ onProceed, destinations = [] }: Props) {
+  const [currentResidence, setCurrentResidence] = useState("");
   const [nationality, setNationality] = useState("");
   const [destination, setDestination] = useState("");
+  const [visaType, setVisaType] = useState("");
+  const [serviceType, setServiceType] = useState<"online" | "doorstep">("online");
 
+  const residences = ["Qatar", "UAE", "Saudi Arabia", "Oman", "Kuwait", "Bahrain"];
   const nationalities = ["India", "Bangladesh", "Nepal", "Pakistan", "Sri Lanka"];
+  const visaTypes = ["Tourist Visa", "Visit Visa", "Business Visa", "Student Visa"];
+
+  const selectedDestination = useMemo(
+    () => destinations.find((d) => d.name === destination),
+    [destination, destinations]
+  );
+
+  const requiredDocs = useMemo(() => {
+    if (!selectedDestination) return [];
+
+    // If your current Destination type already has docs: string[]
+    if (Array.isArray(selectedDestination.docs)) {
+      return selectedDestination.docs;
+    }
+
+    return [
+      "Passport copy",
+      "Passport-size photo",
+      "Valid residence permit copy",
+      "Travel booking",
+      "Hotel booking / accommodation proof",
+      "Bank statement",
+    ];
+  }, [selectedDestination, visaType]);
+
+  const isFormReady =
+    currentResidence && nationality && destination && visaType;
 
   return (
-    <section className="relative min-h-screen flex items-center justify-center overflow-hidden bg-[#09090b] px-4 pt-32 pb-20">
-      
-      {/* --- Solid Background Architecture --- */}
-      <div className="absolute inset-0 pointer-events-none">
-        <div className="absolute inset-0 bg-[linear-gradient(to_right,#ffffff05_1px,transparent_1px),linear-gradient(to_bottom,#ffffff05_1px,transparent_1px)] bg-size-[45px_45px] opacity-20" />
-        <div className="absolute top-[40%] left-1/2 -translate-x-1/2 w-200 h-125 bg-blue-600/10 blur-[120px] rounded-full" />
+    <section className="relative overflow-hidden bg-white px-4 pb-20 pt-28">
+      <div className="pointer-events-none absolute inset-0">
+        <div className="absolute inset-0 bg-[linear-gradient(to_right,#e5e7eb_1px,transparent_1px),linear-gradient(to_bottom,#e5e7eb_1px,transparent_1px)] bg-size-[42px_42px] opacity-40" />
+        <div className="absolute left-1/2 top-16 h-72 w-72 -translate-x-1/2 rounded-full bg-blue-100 blur-3xl" />
+        <div className="absolute bottom-10 right-10 h-64 w-64 rounded-full bg-emerald-100 blur-3xl" />
       </div>
 
-      <div className="relative z-10 max-w-6xl mx-auto text-center">
-        {/* Compliance Badge */}
-        <motion.div 
-          initial={{ opacity: 0, y: 10 }}
+      <div className="relative z-10 mx-auto max-w-7xl">
+        <motion.div
+          initial={{ opacity: 0, y: 14 }}
           animate={{ opacity: 1, y: 0 }}
-          className="inline-flex items-center gap-2 rounded-full border border-zinc-800 bg-zinc-900/50 px-4 py-2 mb-8"
+          className="mx-auto mb-6 inline-flex items-center gap-2 rounded-full border border-blue-100 bg-white px-4 py-2 shadow-sm"
         >
-          <ShieldCheck className="w-3.5 h-3.5 text-blue-500" />
-          <span className="text-[9px] font-black uppercase tracking-[0.3em] text-zinc-500">
-            Doha Strategic Center Verified
+          <ShieldCheck className="h-4 w-4 text-emerald-600" />
+          <span className="text-[11px] font-semibold uppercase tracking-[0.2em] text-slate-600">
+            Smart Visa Assistance
           </span>
         </motion.div>
 
-        <h1 className="text-6xl md:text-9xl font-black italic tracking-tighter uppercase leading-[0.8] mb-12 text-zinc-100">
-          Real-Time <br />
-          <span className="text-transparent bg-clip-text bg-linear-to-r from-blue-500 via-zinc-200 to-zinc-500">
-            Visa Guide.
-          </span>
-        </h1>
+        <div className="mx-auto max-w-4xl text-center">
+          <h1 className="text-4xl font-black tracking-tight text-slate-900 md:text-6xl">
+            Your Bright, Simple
+            <span className="block bg-linear-to-r from-blue-600 to-emerald-600 bg-clip-text text-transparent">
+              Visa Slide Experience
+            </span>
+          </h1>
 
-        <div className="max-w-3xl mx-auto mb-20 opacity-30 grayscale">
-          <Steps />
+          <p className="mx-auto mt-5 max-w-2xl text-sm leading-6 text-slate-600 md:text-base">
+            Select your current residence, destination, nationality, and visa type
+            to instantly view required documents and choose how you want to apply.
+          </p>
         </div>
 
-        {/* Selection Console */}
-        <div className="max-w-5xl mx-auto">
-          <div className="relative rounded-2xl border border-zinc-800 bg-zinc-900/40 backdrop-blur-3xl p-3 shadow-2xl">
-            <div className="flex flex-col lg:flex-row gap-2">
-              
-              {/* 1. Citizenship Selection */}
-              <div className="relative flex-1 group">
-                <select 
-                  className={`w-full appearance-none rounded-xl bg-zinc-950 border px-6 py-5 text-[10px] font-black uppercase tracking-widest outline-none transition-all cursor-pointer ${
-                    nationality ? "border-blue-500 text-white" : "border-zinc-800 text-zinc-500"
-                  }`}
-                  value={nationality}
-                  onChange={(e) => {
-                    setNationality(e.target.value);
-                    setDestination(""); // Reset destination if nationality changes
-                  }}
-                >
-                  <option value="">Citizenship</option>
-                  {nationalities.map(n => <option key={n} value={n}>{n}</option>)}
-                </select>
-                <ChevronDown className={`absolute right-4 top-1/2 -translate-y-1/2 w-4 h-4 transition-colors ${nationality ? "text-blue-500" : "text-zinc-700"}`} />
+        <div className="mx-auto mt-12 max-w-6xl rounded-3xl border border-slate-200 bg-white p-4 shadow-[0_20px_60px_rgba(15,23,42,0.08)] md:p-6">
+          <div className="grid grid-cols-1 gap-4 md:grid-cols-2 xl:grid-cols-4">
+            <SelectBox
+              label="Select From"
+              value={currentResidence}
+              onChange={(e) => setCurrentResidence(e.target.value)}
+              options={residences}
+              placeholder="Current Residence"
+            />
+
+            <SelectBox
+              label="Destination"
+              value={destination}
+              onChange={(e) => setDestination(e.target.value)}
+              options={destinations.map((d) => d.name)}
+              placeholder="Choose Destination"
+            />
+
+            <SelectBox
+              label="Nationality"
+              value={nationality}
+              onChange={(e) => setNationality(e.target.value)}
+              options={nationalities}
+              placeholder="Choose Nationality"
+            />
+
+            <SelectBox
+              label="Visa Type"
+              value={visaType}
+              onChange={(e) => setVisaType(e.target.value)}
+              options={visaTypes}
+              placeholder="Select Visa Type"
+            />
+          </div>
+
+          <div className="mt-6 grid gap-6 lg:grid-cols-[1.4fr_0.9fr]">
+            <div className="rounded-2xl border border-slate-200 bg-slate-50 p-5">
+              <div className="mb-4 flex items-center gap-3">
+                <div className="rounded-xl bg-blue-100 p-2">
+                  <FileText className="h-5 w-5 text-blue-700" />
+                </div>
+                <div>
+                  <h3 className="text-lg font-bold text-slate-900">Required Docs</h3>
+                  <p className="text-sm text-slate-500">
+                    Required documents for the selected destination
+                  </p>
+                </div>
               </div>
 
-              {/* 2. Destination Selection (Unlocked by Nationality) */}
-              <div className="relative flex-1 group">
-                <select 
-                  disabled={!nationality}
-                  className={`w-full appearance-none rounded-xl bg-zinc-950 border px-6 py-5 text-[10px] font-black uppercase tracking-widest outline-none transition-all ${
-                    !nationality ? "opacity-20 cursor-not-allowed border-zinc-800" : 
-                    destination ? "border-blue-500 text-white cursor-pointer" : "border-zinc-800 text-zinc-200 cursor-pointer"
-                  }`}
-                  value={destination}
-                  onChange={(e) => setDestination(e.target.value)}
-                >
-                  <option value="">Destination</option>
-                  {destinations?.map((d: any) => (
-                    <option key={d.id} value={d.name}>{d.name}</option>
+              {requiredDocs.length > 0 ? (
+                <div className="grid gap-3 sm:grid-cols-2">
+                  {requiredDocs.map((doc, index) => (
+                    <div
+                      key={index}
+                      className="rounded-xl border border-slate-200 bg-white px-4 py-3 text-sm font-medium text-slate-700"
+                    >
+                      {doc}
+                    </div>
                   ))}
-                </select>
-                <ChevronDown className={`absolute right-4 top-1/2 -translate-y-1/2 w-4 h-4 transition-colors ${destination ? "text-blue-500" : "text-zinc-700"}`} />
+                </div>
+              ) : (
+                <div className="rounded-2xl border border-dashed border-slate-300 bg-white px-4 py-8 text-center text-sm text-slate-500">
+                  Select a destination to view required documents.
+                </div>
+              )}
+            </div>
+
+            <div className="rounded-2xl border border-slate-200 bg-white p-5">
+              <div className="mb-4 flex items-center gap-3">
+                <div className="rounded-xl bg-emerald-100 p-2">
+                  <Globe2 className="h-5 w-5 text-emerald-700" />
+                </div>
+                <div>
+                  <h3 className="text-lg font-bold text-slate-900">Choose Service</h3>
+                  <p className="text-sm text-slate-500">
+                    Pick how you want to continue
+                  </p>
+                </div>
               </div>
 
-              {/* 3. Action Button (Unlocked by Destination) */}
-              <button 
-                disabled={!destination}
-                onClick={() => onProceed({ nationality, destination })}
-                className={`px-10 py-5 rounded-xl font-black text-[10px] uppercase tracking-widest transition-all flex items-center justify-center gap-3 ${
-                  !destination 
-                  ? "bg-zinc-800 text-zinc-600 opacity-50 cursor-not-allowed" 
-                  : "bg-blue-600 text-white hover:bg-blue-500 active:scale-95 shadow-[0_0_20px_rgba(37,99,235,0.3)]"
+              <div className="space-y-3">
+                <button
+                  type="button"
+                  onClick={() => setServiceType("online")}
+                  className={`w-full rounded-2xl border px-4 py-4 text-left transition ${
+                    serviceType === "online"
+                      ? "border-blue-600 bg-blue-50"
+                      : "border-slate-200 bg-white hover:border-blue-300"
+                  }`}
+                >
+                  <div className="font-semibold text-slate-900">Apply Online</div>
+                  <div className="mt-1 text-sm text-slate-500">
+                    Submit your application digitally
+                  </div>
+                </button>
+
+                <button
+                  type="button"
+                  onClick={() => setServiceType("doorstep")}
+                  className={`w-full rounded-2xl border px-4 py-4 text-left transition ${
+                    serviceType === "doorstep"
+                      ? "border-emerald-600 bg-emerald-50"
+                      : "border-slate-200 bg-white hover:border-emerald-300"
+                  }`}
+                >
+                  <div className="flex items-center gap-2 font-semibold text-slate-900">
+                    <Truck className="h-4 w-4" />
+                    Take Doorstep Service
+                  </div>
+                  <div className="mt-1 text-sm text-slate-500">
+                    Get assisted collection and support at your location
+                  </div>
+                </button>
+              </div>
+
+              <button
+                disabled={!isFormReady}
+                onClick={() =>
+                  onProceed?.({
+                    currentResidence,
+                    nationality,
+                    destination,
+                    visaType,
+                    serviceType,
+                  })
+                }
+                className={`mt-5 flex w-full items-center justify-center gap-2 rounded-2xl px-5 py-4 text-sm font-bold transition ${
+                  isFormReady
+                    ? "bg-slate-900 text-white hover:opacity-90"
+                    : "cursor-not-allowed bg-slate-200 text-slate-400"
                 }`}
               >
-                Verify Requirements
-                <ArrowRight size={14} className={destination ? "animate-pulse" : ""} />
+                Continue
+                <ArrowRight className="h-4 w-4" />
               </button>
-
             </div>
           </div>
-          
-          {/* Helper Text */}
-          {!nationality && (
-            <p className="mt-4 text-[9px] font-bold text-zinc-600 uppercase tracking-[0.2em]">Select your citizenship to begin the automated check</p>
-          )}
         </div>
       </div>
     </section>
+  );
+}
+
+type SelectBoxProps = {
+  label: string;
+  value: string;
+  onChange: React.ChangeEventHandler<HTMLSelectElement>;
+  options: string[];
+  placeholder: string;
+};
+
+function SelectBox({
+  label,
+  value,
+  onChange,
+  options,
+  placeholder,
+}: SelectBoxProps) {
+  return (
+    <div>
+      <label className="mb-2 block text-xs font-bold uppercase tracking-[0.18em] text-slate-500">
+        {label}
+      </label>
+      <div className="relative">
+        <select
+          value={value}
+          onChange={onChange}
+          className="w-full appearance-none rounded-2xl border border-slate-200 bg-white px-4 py-4 pr-11 text-sm font-medium text-slate-800 outline-none transition focus:border-blue-500 focus:ring-4 focus:ring-blue-100"
+        >
+          <option value="">{placeholder}</option>
+          {options.map((item) => (
+            <option key={item} value={item}>
+              {item}
+            </option>
+          ))}
+        </select>
+        <ChevronDown className="pointer-events-none absolute right-4 top-1/2 h-4 w-4 -translate-y-1/2 text-slate-400" />
+      </div>
+    </div>
   );
 }

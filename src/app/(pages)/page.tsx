@@ -10,15 +10,17 @@ import CountryModal from "@/components/(home)/CountryModal";
 import { destinations } from "@/data/destinations";
 import type { Destination } from "@/types/destination";
 
+type ProceedPayload = {
+  currentResidence: string;
+  nationality: string;
+  destination: string;
+  visaType: string;
+  serviceType: "online" | "doorstep";
+};
+
 export default function Page() {
   const router = useRouter();
-
-  const [mounted, setMounted] = useState(false);
   const [selectedCountry, setSelectedCountry] = useState<Destination | null>(null);
-
-  useEffect(() => {
-    setMounted(true);
-  }, []);
 
   useEffect(() => {
     if (selectedCountry) {
@@ -47,30 +49,32 @@ export default function Page() {
       .replace(/\s+/g, "-")
       .replace(/-+/g, "-");
 
-  const handleProceed = (payload?: { nationality: string; destination: string }) => {
-    if (!payload?.nationality || !payload?.destination) return;
+  const handleProceed = (payload?: ProceedPayload) => {
+    if (
+      !payload?.currentResidence ||
+      !payload?.nationality ||
+      !payload?.destination ||
+      !payload?.visaType ||
+      !payload?.serviceType
+    ) {
+      return;
+    }
 
     const countrySlug = slugify(payload.destination);
 
     router.push(
-      `/visa/${countrySlug}?nationality=${encodeURIComponent(payload.nationality)}`
+      `/visa/${countrySlug}?nationality=${encodeURIComponent(
+        payload.nationality
+      )}&from=${encodeURIComponent(
+        payload.currentResidence
+      )}&visaType=${encodeURIComponent(
+        payload.visaType
+      )}&serviceType=${encodeURIComponent(payload.serviceType)}`
     );
   };
 
-  if (!mounted) {
-    // Ensuring fallback uses the solid Industrial Gray color
-    return <div className="min-h-screen bg-[#09090b]" />;
-  }
-
   return (
-    // Changed bg-brand-dark to solid #09090b for Industrial Gray consistency
-    <div className="min-h-screen pb-10 bg-[#09090b] text-white font-sans selection:bg-white/10 overflow-x-hidden">
-      
-      {/* FIX: DELETED THE GLOBAL bg-glow DIV. 
-          The HeroSection now manages its own masked background 
-          so the top area remains solid and dark for the Navbar.
-      */}
-
+    <div className="min-h-screen overflow-x-hidden bg-white pb-10 font-sans text-slate-900 selection:bg-blue-100">
       <HeroSection
         destinations={destinations}
         onProceed={handleProceed}
