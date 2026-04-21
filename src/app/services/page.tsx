@@ -1,33 +1,52 @@
-import { Metadata } from "next";
+import type { Metadata } from "next";
 import ServicesClient from "./ServicesClient";
 
-// 2026 SEO Metadata - Targeted for Tourist, Business & E-Visas
 export const metadata: Metadata = {
-  title: "Digital Visa Engine | E-Visa, Visit & Tourist Specialist",
-  description: "Elite digital processing for Visit, Tourist, and Business Tourist visas. Specialized E-Visa infrastructure for South Asian professionals and GCC residents traveling from Doha & Dhaka.",
+  title:
+    "Visa Services from Qatar | Visit Visa, Tourist Visa & Work Visa Assistance | Visa Slide",
+  description:
+    "Explore premium visa services from Qatar with Visa Slide. Get assistance for visit visa, tourist visa, family visit visa, business visa, and work visa applications with document guidance and end-to-end support.",
   keywords: [
-    "Visit Visa Online",
-    "Tourist Visa Processing",
-    "Business Tourist E-Visa",
-    "Digital Visa Engine",
-    "Qatar E-Visa Service",
-    "Bangladesh Outbound Visas",
-    "South Asia Travel Permits"
+    "visa services from Qatar",
+    "visit visa services",
+    "tourist visa services",
+    "family visit visa assistance",
+    "business visa assistance",
+    "work visa services",
+    "work visa from Qatar",
+    "visit visa from Qatar",
+    "tourist visa from Qatar",
+    "visa agency Qatar",
+    "visa assistance Qatar",
+    "Schengen visa services from Qatar",
+    "Europe work visa assistance",
+    "Visa Slide services",
   ],
   alternates: {
-    canonical: "https://visaslide.com/services",
+    canonical: "/services",
+  },
+  openGraph: {
+    title:
+      "Visa Services from Qatar | Visit Visa & Work Visa Assistance | Visa Slide",
+    description:
+      "Premium visa services for visit visa, tourist visa, family visa, business visa, and work visa applications from Qatar.",
+    url: "/services",
+    siteName: "Visa Slide",
+    type: "website",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title:
+      "Visa Services from Qatar | Visit Visa & Work Visa Assistance | Visa Slide",
+    description:
+      "Premium visa services for visit visa, tourist visa, family visa, business visa, and work visa applications from Qatar.",
+  },
+  robots: {
+    index: true,
+    follow: true,
   },
 };
 
 export default function ServicesPage() {
-  return (
-    <div className="bg-[#050505]">
-      {/* Optimized SEO H1 for backend indexing */}
-      <h1 className="sr-only">
-        Digital Visa Engine: Online Visit, Tourist, and Business E-Visa Systems
-      </h1>
-      
-      <ServicesClient />
-    </div>
-  );
+  return <ServicesClient />;
 }
