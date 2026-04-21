@@ -60,8 +60,8 @@ export default function HeroSection() {
       {/* Soft Ambient Background */}
       <div className="pointer-events-none absolute inset-0">
         <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_-20%,#3b82f615,transparent_50%)]" />
-        <div className="absolute left-1/2 top-0 h-[340px] w-[340px] -translate-x-1/2 rounded-full bg-blue-100/50 blur-3xl" />
-        <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-slate-200 to-transparent" />
+        <div className="absolute left-1/2 top-0 h-85 w-85 -translate-x-1/2 rounded-full bg-blue-100/50 blur-3xl" />
+        <div className="absolute top-0 left-0 right-0 h-px bg-linear-to-r from-transparent via-slate-200 to-transparent" />
       </div>
 
       <div className="relative z-10 mx-auto max-w-6xl">
@@ -82,7 +82,7 @@ export default function HeroSection() {
           <h1 className="text-balance text-4xl font-extrabold tracking-tight text-slate-900 sm:text-5xl md:text-7xl">
             Visa applications,{" "}
             <span className="relative inline-block">
-              <span className="relative z-10 bg-gradient-to-r from-blue-600 to-indigo-600 bg-clip-text text-transparent">
+              <span className="relative z-10 bg-linear-to-r from-blue-600 to-indigo-600 bg-clip-text text-transparent">
                 made effortless.
               </span>
               <motion.span
@@ -139,7 +139,7 @@ export default function HeroSection() {
                     onClick={() => setVisaType("visit")}
                     icon={<Globe2 className="h-5 w-5" />}
                     title="Visit Visa"
-                    desc="Tourism & Family"
+                    desc="Tourism, Business & Family"
                   />
 
                   <VisaTypeButton
@@ -154,7 +154,7 @@ export default function HeroSection() {
             </div>
 
             {/* Right Side */}
-            <div className="w-full bg-slate-50/60 p-6 md:p-10 lg:w-[360px]">
+            <div className="w-full bg-slate-50/60 p-6 md:p-10 lg:w-90">
               <div className="flex h-full flex-col justify-between">
                 <div>
                   <h3 className="text-lg font-bold text-slate-900">
