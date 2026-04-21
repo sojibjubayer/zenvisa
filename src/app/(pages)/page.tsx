@@ -76,8 +76,6 @@ export default function Page() {
   return (
     <div className="min-h-screen overflow-x-hidden bg-white pb-10 font-sans text-slate-900 selection:bg-blue-100">
       <HeroSection
-        destinations={destinations}
-        onProceed={handleProceed}
       />
 
       <PopularSection

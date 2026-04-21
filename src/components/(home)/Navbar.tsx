@@ -47,7 +47,7 @@ export default function Navbar() {
       <header className="relative z-50 bg-white px-4  md:px-8 ">
         <nav className="mx-auto flex max-w-7xl items-center justify-between rounded-[22px] border border-slate-200 bg-white px-4 py-3 shadow-[0_8px_30px_rgba(15,23,42,0.05)] md:px-6">
           <Link href="/" className="group flex items-center gap-3">
-            <div className="relative flex h-11 w-11 items-center justify-center rounded-[18px] border border-blue-100 bg-gradient-to-br from-blue-50 via-white to-emerald-50 transition-all duration-300 group-hover:scale-[1.02] group-hover:border-blue-200">
+            <div className="relative flex h-11 w-11 items-center justify-center rounded-[18px] border border-blue-100 bg-linear-to-br from-blue-50 via-white to-emerald-50 transition-all duration-300 group-hover:scale-[1.02] group-hover:border-blue-200">
               <div className="relative h-7 w-7">
                 <Image
                   src="/logo.png"
